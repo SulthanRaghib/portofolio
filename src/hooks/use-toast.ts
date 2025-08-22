@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+// Update the import path below to the correct relative path if your toast component is at src/components/ui/toast.tsx
 import { ToastActionElement, type ToastProps } from "@/components/ui/toast"
 
 const TOAST_LIMIT = 1
@@ -83,6 +84,8 @@ const reducer = (state: State, action: any): State => {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
       }
+    default:
+      return state;
   }
 }
 
