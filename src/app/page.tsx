@@ -14,6 +14,7 @@ import {
   Globe,
   Smartphone,
 } from "lucide-react";
+import Image from "next/image";
 
 const projects = [
   {
@@ -162,7 +163,7 @@ export default function Home() {
             {/* Profile Image and Bio */}
             <div className="flex flex-col items-center lg:items-start">
               <div className="w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mb-6 flex items-center justify-center border-4 border-primary/10">
-                <img
+                <Image
                   src="/developer-headshot.png"
                   alt="John Doe - Full Stack Developer"
                   className="w-56 h-56 rounded-full object-cover"

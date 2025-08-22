@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProjectCardProps {
   title: string;
@@ -30,7 +31,7 @@ export function ProjectCard({
       }`}
     >
       <div className="relative overflow-hidden">
-        <img
+        <Image
           src={image || "/placeholder.svg"}
           alt={`${title} project screenshot`}
           className="w-full h-48 md:h-56 object-cover group-hover:scale-105 transition-transform duration-300"
