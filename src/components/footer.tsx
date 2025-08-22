@@ -1,8 +1,8 @@
-import Link from "next/link"
-import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react"
+import Link from "next/link";
+import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-background border-t border-border">
@@ -10,12 +10,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="md:col-span-2">
-            <Link href="#home" className="font-heading font-black text-2xl text-primary mb-4 block">
+            <Link
+              href="#home"
+              className="font-heading font-black text-2xl text-primary mb-4 block"
+            >
               John Doe
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              Full Stack Developer passionate about creating exceptional digital experiences. Let's build something
-              amazing together.
+              Full Stack Developer passionate about creating exceptional digital
+              experiences. Let&apos;s build something amazing together.
             </p>
             <div className="flex items-center space-x-4">
               <Link
@@ -57,15 +60,23 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-bold text-foreground mb-4">Quick Links</h3>
+            <h3 className="font-heading font-bold text-foreground mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#home" className="text-muted-foreground hover:text-primary transition-colors duration-200">
+                <Link
+                  href="#home"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="text-muted-foreground hover:text-primary transition-colors duration-200">
+                <Link
+                  href="#about"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200"
+                >
                   About
                 </Link>
               </li>
@@ -90,7 +101,9 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-heading font-bold text-foreground mb-4">Services</h3>
+            <h3 className="font-heading font-bold text-foreground mb-4">
+              Services
+            </h3>
             <ul className="space-y-2">
               <li className="text-muted-foreground">Web Development</li>
               <li className="text-muted-foreground">Mobile Apps</li>
@@ -112,5 +125,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

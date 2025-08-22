@@ -1,11 +1,19 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ProjectCard } from "@/components/project-card"
-import { ContactForm } from "@/components/contact-form"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowDown, Download, ExternalLink, Code, Database, Globe, Smartphone } from "lucide-react"
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { ProjectCard } from "@/components/project-card";
+import { ContactForm } from "@/components/contact-form";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowDown,
+  Download,
+  ExternalLink,
+  Code,
+  Database,
+  Globe,
+  Smartphone,
+} from "lucide-react";
 
 const projects = [
   {
@@ -13,7 +21,13 @@ const projects = [
     description:
       "A full-stack e-commerce solution built with Next.js and Stripe integration. Features include user authentication, product management, shopping cart, and secure payment processing.",
     image: "/modern-ecommerce-dashboard.png",
-    technologies: ["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind CSS"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Stripe",
+      "PostgreSQL",
+      "Tailwind CSS",
+    ],
     demoUrl: "https://ecommerce-demo.example.com",
     githubUrl: "https://github.com/johndoe/ecommerce-platform",
     featured: true,
@@ -50,7 +64,13 @@ const projects = [
     description:
       "A community-driven recipe sharing platform where users can create, share, and discover new recipes with advanced search and filtering capabilities.",
     image: "/recipe-sharing-website.png",
-    technologies: ["Next.js", "Prisma", "PostgreSQL", "Cloudinary", "NextAuth.js"],
+    technologies: [
+      "Next.js",
+      "Prisma",
+      "PostgreSQL",
+      "Cloudinary",
+      "NextAuth.js",
+    ],
     demoUrl: "https://recipes-demo.example.com",
     githubUrl: "https://github.com/johndoe/recipe-platform",
   },
@@ -63,14 +83,17 @@ const projects = [
     demoUrl: "https://fitness-app.example.com",
     githubUrl: "https://github.com/johndoe/fitness-tracker",
   },
-]
+];
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <Navbar />
 
-      <section id="home" className="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section
+        id="home"
+        className="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden"
+      >
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
 
@@ -91,8 +114,9 @@ export default function Home() {
 
           {/* Tagline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Crafting elegant solutions with modern technologies. Passionate about creating exceptional user experiences
-            and scalable applications.
+            Crafting elegant solutions with modern technologies. Passionate
+            about creating exceptional user experiences and scalable
+            applications.
           </p>
 
           {/* Call-to-action buttons */}
@@ -101,7 +125,11 @@ export default function Home() {
               View My Work
               <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 font-semibold group bg-transparent">
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-lg px-8 py-6 font-semibold group bg-transparent"
+            >
               Download Resume
               <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
             </Button>
@@ -109,7 +137,9 @@ export default function Home() {
 
           {/* Scroll indicator */}
           <div className="flex flex-col items-center">
-            <p className="text-sm text-muted-foreground mb-2">Scroll to explore</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              Scroll to explore
+            </p>
             <ArrowDown className="h-6 w-6 text-muted-foreground animate-bounce" />
           </div>
         </div>
@@ -118,10 +148,13 @@ export default function Home() {
       <section id="about" className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">About Me</h2>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
+              About Me
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              I'm a passionate full stack developer with 5+ years of experience building web applications. I love
-              turning complex problems into simple, beautiful solutions.
+              I&apos;m a passionate full stack developer with 5+ years of
+              experience building web applications. I love turning complex
+              problems into simple, beautiful solutions.
             </p>
           </div>
 
@@ -136,10 +169,15 @@ export default function Home() {
                 />
               </div>
               <div className="text-center lg:text-left">
-                <h3 className="font-heading font-bold text-2xl text-foreground mb-4">John Doe</h3>
-                <p className="text-primary font-semibold mb-4">Full Stack Developer</p>
+                <h3 className="font-heading font-bold text-2xl text-foreground mb-4">
+                  John Doe
+                </h3>
+                <p className="text-primary font-semibold mb-4">
+                  Full Stack Developer
+                </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Based in San Francisco, CA. Available for freelance projects and full-time opportunities.
+                  Based in San Francisco, CA. Available for freelance projects
+                  and full-time opportunities.
                 </p>
               </div>
             </div>
@@ -147,37 +185,53 @@ export default function Home() {
             {/* Biography */}
             <div className="space-y-6">
               <div>
-                <h3 className="font-heading font-bold text-xl text-foreground mb-4">My Story</h3>
+                <h3 className="font-heading font-bold text-xl text-foreground mb-4">
+                  My Story
+                </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  I started my journey in web development 5 years ago, driven by a passion for creating digital
-                  experiences that make a difference. What began as curiosity about how websites work has evolved into a
-                  career focused on building scalable, user-centric applications.
+                  I started my journey in web development 5 years ago, driven by
+                  a passion for creating digital experiences that make a
+                  difference. What began as curiosity about how websites work
+                  has evolved into a career focused on building scalable,
+                  user-centric applications.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  I specialize in modern JavaScript frameworks, cloud architecture, and creating seamless user
-                  experiences. When I'm not coding, you'll find me exploring new technologies, contributing to open
-                  source projects, or hiking in the Bay Area.
+                  I specialize in modern JavaScript frameworks, cloud
+                  architecture, and creating seamless user experiences. When
+                  I&apos;m not coding, you&apos;ll find me exploring new
+                  technologies, contributing to open source projects, or hiking
+                  in the Bay Area.
                 </p>
               </div>
 
               <div>
-                <h3 className="font-heading font-bold text-xl text-foreground mb-4">What I Do</h3>
+                <h3 className="font-heading font-bold text-xl text-foreground mb-4">
+                  What I Do
+                </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-3">
                     <Code className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Frontend Development</span>
+                    <span className="text-muted-foreground">
+                      Frontend Development
+                    </span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Database className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Backend Development</span>
+                    <span className="text-muted-foreground">
+                      Backend Development
+                    </span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Globe className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Web Applications</span>
+                    <span className="text-muted-foreground">
+                      Web Applications
+                    </span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Smartphone className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Mobile Development</span>
+                    <span className="text-muted-foreground">
+                      Mobile Development
+                    </span>
                   </div>
                 </div>
               </div>
@@ -187,21 +241,29 @@ export default function Home() {
           {/* Quick stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
             <div className="text-center">
-              <div className="text-4xl font-heading font-black text-primary mb-2">50+</div>
+              <div className="text-4xl font-heading font-black text-primary mb-2">
+                50+
+              </div>
               <div className="text-muted-foreground">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-heading font-black text-primary mb-2">5+</div>
+              <div className="text-4xl font-heading font-black text-primary mb-2">
+                5+
+              </div>
               <div className="text-muted-foreground">Years Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-heading font-black text-primary mb-2">20+</div>
+              <div className="text-4xl font-heading font-black text-primary mb-2">
+                20+
+              </div>
               <div className="text-muted-foreground">Happy Clients</div>
             </div>
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <h3 className="font-heading font-bold text-3xl text-foreground text-center mb-12">Skills & Technologies</h3>
+            <h3 className="font-heading font-bold text-3xl text-foreground text-center mb-12">
+              Skills & Technologies
+            </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Frontend Skills */}
@@ -214,29 +276,44 @@ export default function Home() {
                   <div className="space-y-3">
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">React</span>
+                        <span className="text-sm text-muted-foreground">
+                          React
+                        </span>
                         <span className="text-sm text-primary">95%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "95%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "95%" }}
+                        ></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">TypeScript</span>
+                        <span className="text-sm text-muted-foreground">
+                          TypeScript
+                        </span>
                         <span className="text-sm text-primary">90%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "90%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "90%" }}
+                        ></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">Next.js</span>
+                        <span className="text-sm text-muted-foreground">
+                          Next.js
+                        </span>
                         <span className="text-sm text-primary">85%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "85%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "85%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -253,29 +330,44 @@ export default function Home() {
                   <div className="space-y-3">
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">Node.js</span>
+                        <span className="text-sm text-muted-foreground">
+                          Node.js
+                        </span>
                         <span className="text-sm text-primary">90%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "90%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "90%" }}
+                        ></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">Python</span>
+                        <span className="text-sm text-muted-foreground">
+                          Python
+                        </span>
                         <span className="text-sm text-primary">80%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "80%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "80%" }}
+                        ></div>
                       </div>
                     </div>
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm text-muted-foreground">PostgreSQL</span>
+                        <span className="text-sm text-muted-foreground">
+                          PostgreSQL
+                        </span>
                         <span className="text-sm text-primary">85%</span>
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
-                        <div className="bg-primary h-2 rounded-full" style={{ width: "85%" }}></div>
+                        <div
+                          className="bg-primary h-2 rounded-full"
+                          style={{ width: "85%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -305,14 +397,26 @@ export default function Home() {
                 <CardContent className="p-0">
                   <div className="flex items-center mb-4">
                     <Smartphone className="h-6 w-6 text-primary mr-2" />
-                    <h4 className="font-heading font-bold text-lg">Soft Skills</h4>
+                    <h4 className="font-heading font-bold text-lg">
+                      Soft Skills
+                    </h4>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-sm text-muted-foreground">• Problem Solving</div>
-                    <div className="text-sm text-muted-foreground">• Team Leadership</div>
-                    <div className="text-sm text-muted-foreground">• Communication</div>
-                    <div className="text-sm text-muted-foreground">• Project Management</div>
-                    <div className="text-sm text-muted-foreground">• Mentoring</div>
+                    <div className="text-sm text-muted-foreground">
+                      • Problem Solving
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      • Team Leadership
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      • Communication
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      • Project Management
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      • Mentoring
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -324,10 +428,13 @@ export default function Home() {
       <section id="projects" className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">Featured Projects</h2>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
+              Featured Projects
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Here are some of my recent projects that showcase my skills and passion for development. Each project
-              demonstrates different aspects of modern web development.
+              Here are some of my recent projects that showcase my skills and
+              passion for development. Each project demonstrates different
+              aspects of modern web development.
             </p>
           </div>
 
@@ -348,10 +455,15 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-muted-foreground mb-6">
-              Want to see more of my work? Check out my GitHub profile for additional projects and contributions.
+              Want to see more of my work? Check out my GitHub profile for
+              additional projects and contributions.
             </p>
             <Button size="lg" variant="outline" asChild>
-              <a href="https://github.com/johndoe" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/johndoe"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 View All Projects on GitHub
                 <ExternalLink className="ml-2 h-5 w-5" />
               </a>
@@ -363,9 +475,12 @@ export default function Home() {
       <section id="contact" className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">Let's Work Together</h2>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
+              Let&apos;s Work Together
+            </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life.
+              Have a project in mind? I&apos;d love to hear about it. Let&apos;s
+              discuss how we can bring your ideas to life.
             </p>
           </div>
 
@@ -375,5 +490,5 @@ export default function Home() {
 
       <Footer />
     </main>
-  )
+  );
 }

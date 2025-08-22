@@ -39,9 +39,9 @@ export function ContactForm() {
             Get In Touch
           </h3>
           <p className="text-muted-foreground leading-relaxed mb-8">
-            I'm always interested in new opportunities and exciting projects.
-            Whether you have a question, want to work together, or just want to
-            say hello, I'd love to hear from you.
+            I&apos;m always interested in new opportunities and exciting
+            projects. Whether you have a question, want to work together, or
+            just want to say hello, I&apos;d love to hear from you.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export function ContactForm() {
                   Message sent!
                 </p>
                 <p className="text-sm text-green-600 dark:text-green-300">
-                  Thank you for your message. I'll get back to you soon.
+                  Thank you for your message. I&apos;ll get back to you soon.
                 </p>
               </div>
             </div>
