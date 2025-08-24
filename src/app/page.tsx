@@ -167,6 +167,8 @@ export default function Home() {
                   src="/developer-headshot.png"
                   alt="John Doe - Full Stack Developer"
                   className="w-56 h-56 rounded-full object-cover"
+                  width={224}
+                  height={224}
                 />
               </div>
               <div className="text-center lg:text-left">
