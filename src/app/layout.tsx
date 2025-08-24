@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/components/context/language-context";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -19,9 +20,9 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe - Full Stack Developer",
+  title: "Sulthan Raghib Fillah - Web Developer",
   description:
-    "Personal portfolio showcasing my projects and skills as a full stack developer",
+    "Personal portfolio showcasing my projects and skills as a web developer & backend engineer",
   generator: "v0.app",
 };
 
@@ -39,7 +40,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

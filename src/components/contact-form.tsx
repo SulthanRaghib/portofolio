@@ -52,7 +52,9 @@ export function ContactForm() {
             </div>
             <div>
               <h4 className="font-semibold text-foreground">Email</h4>
-              <p className="text-muted-foreground">john@example.com</p>
+              <p className="text-muted-foreground">
+                sulthan.raghib09@gmail.com
+              </p>
             </div>
           </div>
 
@@ -62,7 +64,7 @@ export function ContactForm() {
             </div>
             <div>
               <h4 className="font-semibold text-foreground">Phone</h4>
-              <p className="text-muted-foreground">+1 (555) 123-4567</p>
+              <p className="text-muted-foreground">+62 857-2188-3952</p>
             </div>
           </div>
 
@@ -72,7 +74,7 @@ export function ContactForm() {
             </div>
             <div>
               <h4 className="font-semibold text-foreground">Location</h4>
-              <p className="text-muted-foreground">San Francisco, CA</p>
+              <p className="text-muted-foreground">Jakarta, Indonesia</p>
             </div>
           </div>
         </div>
@@ -80,8 +82,8 @@ export function ContactForm() {
         <div>
           <h4 className="font-semibold text-foreground mb-4">Response Time</h4>
           <p className="text-muted-foreground">
-            I typically respond to messages within 24 hours. For urgent
-            inquiries, feel free to reach out via phone or LinkedIn.
+            I typically respond within 24 hours. For urgent inquiries, please
+            contact me via phone or LinkedIn.
           </p>
         </div>
       </div>
@@ -117,7 +119,6 @@ export function ContactForm() {
                   name="firstName"
                   placeholder="John"
                   required
-                  className="w-full"
                 />
               </div>
               <div className="space-y-2">
@@ -127,7 +128,6 @@ export function ContactForm() {
                   name="lastName"
                   placeholder="Doe"
                   required
-                  className="w-full"
                 />
               </div>
             </div>
@@ -138,9 +138,8 @@ export function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="you@example.com"
                 required
-                className="w-full"
               />
             </div>
 
@@ -151,7 +150,6 @@ export function ContactForm() {
                 name="subject"
                 placeholder="Project Inquiry"
                 required
-                className="w-full"
               />
             </div>
 
@@ -160,9 +158,9 @@ export function ContactForm() {
               <Textarea
                 id="message"
                 name="message"
-                placeholder="Tell me about your project or how I can help you..."
+                placeholder="Tell me about your project or how I can help..."
                 required
-                className="w-full min-h-[120px] resize-none"
+                className="min-h-[120px] resize-none"
               />
             </div>
 

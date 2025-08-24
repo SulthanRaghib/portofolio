@@ -14,15 +14,16 @@ export function Footer() {
               href="#home"
               className="font-heading font-black text-2xl text-primary mb-4 block"
             >
-              John Doe
+              Sulthan Raghib Fillah
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              Full Stack Developer passionate about creating exceptional digital
-              experiences. Let&apos;s build something amazing together.
+              Web Developer & Backend Engineer passionate about building
+              scalable applications with Laravel, JavaScript, and modern
+              frameworks. Let&apos;s create something impactful together.
             </p>
             <div className="flex items-center space-x-4">
               <Link
-                href="https://github.com/johndoe"
+                href="https://github.com/SulthanRaghib"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 hover:bg-primary/10 rounded-lg"
@@ -31,7 +32,7 @@ export function Footer() {
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link
-                href="https://linkedin.com/in/johndoe"
+                href="https://linkedin.com/in/sulthan-raghib-fillah"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 hover:bg-primary/10 rounded-lg"
@@ -40,16 +41,7 @@ export function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="https://twitter.com/johndoe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 hover:bg-primary/10 rounded-lg"
-              >
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link
-                href="mailto:john@example.com"
+                href="mailto:sulthanraghib@example.com"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 hover:bg-primary/10 rounded-lg"
               >
                 <Mail className="h-5 w-5" />
@@ -106,16 +98,16 @@ export function Footer() {
             </h3>
             <ul className="space-y-2">
               <li className="text-muted-foreground">Web Development</li>
-              <li className="text-muted-foreground">Mobile Apps</li>
-              <li className="text-muted-foreground">UI/UX Design</li>
-              <li className="text-muted-foreground">Consulting</li>
+              <li className="text-muted-foreground">Backend Engineering</li>
+              <li className="text-muted-foreground">API Integration</li>
+              <li className="text-muted-foreground">Database Design</li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © {currentYear} John Doe. All rights reserved.
+            © {currentYear} Sulthan Raghib Fillah. All rights reserved.
           </div>
           <div className="flex items-center text-muted-foreground text-sm">
             <span>Made with</span>
