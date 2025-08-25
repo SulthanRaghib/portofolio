@@ -389,7 +389,7 @@ export default function Home() {
             </p>
             <Button size="lg" variant="outline" asChild>
               <a
-                href="https://github.com/johndoe"
+                href="https://github.com/SulthanRaghib"
                 target="_blank"
                 rel="noopener noreferrer"
               >
