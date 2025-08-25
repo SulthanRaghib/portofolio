@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
+import { useLanguage } from "./context/language-context";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { language } = useLanguage();
 
   return (
     <footer className="bg-background border-t border-border">
@@ -17,9 +21,9 @@ export function Footer() {
               Sulthan Raghib Fillah
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
-              Web Developer & Backend Engineer passionate about building
-              scalable applications with Laravel, JavaScript, and modern
-              frameworks. Let&apos;s create something impactful together.
+              {language === "EN"
+                ? "Web Developer & Backend Engineer passionate about building scalable applications with Laravel, JavaScript, and modern frameworks. Let's create something impactful together."
+                : "Web Developer & Backend Engineer yang memiliki passion dalam membangun aplikasi yang scalable dengan Laravel, JavaScript, dan framework modern. Mari kita ciptakan sesuatu yang berdampak bersama."}
             </p>
             <div className="flex items-center space-x-4">
               <Link
@@ -41,7 +45,7 @@ export function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Link>
               <Link
-                href="mailto:sulthanraghib@example.com"
+                href="mailto:sultha.nraghib09@example.com"
                 className="text-muted-foreground hover:text-primary transition-colors duration-200 p-2 hover:bg-primary/10 rounded-lg"
               >
                 <Mail className="h-5 w-5" />
@@ -53,7 +57,7 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="font-heading font-bold text-foreground mb-4">
-              Quick Links
+              {language === "EN" ? "Quick Links" : "Tautan Cepat"}
             </h3>
             <ul className="space-y-2">
               <li>
@@ -61,7 +65,7 @@ export function Footer() {
                   href="#home"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Home
+                  {language === "EN" ? "Home" : "Beranda"}
                 </Link>
               </li>
               <li>
@@ -69,7 +73,7 @@ export function Footer() {
                   href="#about"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  About
+                  {language === "EN" ? "About" : "Tentang"}
                 </Link>
               </li>
               <li>
@@ -77,7 +81,7 @@ export function Footer() {
                   href="#projects"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Projects
+                  {language === "EN" ? "Projects" : "Proyek"}
                 </Link>
               </li>
               <li>
@@ -85,7 +89,7 @@ export function Footer() {
                   href="#contact"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
-                  Contact
+                  {language === "EN" ? "Contact" : "Kontak"}
                 </Link>
               </li>
             </ul>

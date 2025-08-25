@@ -1,3 +1,5 @@
+"use client";
+
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
@@ -15,6 +17,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import Image from "next/image";
+import { useLanguage } from "@/components/context/language-context";
 
 const projects = [
   {
@@ -87,6 +90,8 @@ const projects = [
 ];
 
 export default function Home() {
+  const { language } = useLanguage();
+
   return (
     <main className="min-h-screen">
       <Navbar />
@@ -116,14 +121,15 @@ export default function Home() {
 
           {/* Tagline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Passionate about building scalable applications and crafting modern,
-            elegant solutions with PHP, Laravel, and JavaScript.
+            {language === "EN"
+              ? "Passionate about building scalable applications and crafting modern, elegant solutions with PHP, Laravel, and JavaScript."
+              : "Kecintaan dalam membangun aplikasi yang skalabel dan merancang solusi modern yang elegan dengan PHP, Laravel, dan JavaScript."}
           </p>
 
           {/* Call-to-action buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Button size="lg" className="text-lg px-8 py-6 font-semibold group">
-              View My Work
+              {language === "EN" ? "View My Work" : "Lihat Karyaku"}
               <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
@@ -131,7 +137,7 @@ export default function Home() {
               size="lg"
               className="text-lg px-8 py-6 font-semibold group bg-transparent"
             >
-              Download Resume
+              {language === "EN" ? "Download Resume" : "Unduh Resume"}
               <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
             </Button>
           </div>
@@ -139,7 +145,9 @@ export default function Home() {
           {/* Scroll indicator */}
           <div className="flex flex-col items-center">
             <p className="text-sm text-muted-foreground mb-2">
-              Scroll to explore
+              {language === "EN"
+                ? "Scroll to explore"
+                : "Gulir untuk menjelajahi"}
             </p>
             <ArrowDown className="h-6 w-6 text-muted-foreground animate-bounce" />
           </div>
@@ -151,13 +159,12 @@ export default function Home() {
           {/* Title */}
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
-              About Me
+              {language === "EN" ? "About Me" : "Tentang Saya"}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              I&apos;m Sulthan Raghib Fillah, a web developer passionate about
-              crafting scalable applications with Laravel, PHP, JavaScript, and
-              modern frameworks. I love transforming complex problems into
-              clean, user-friendly solutions.
+              {language === "EN"
+                ? "I'm Sulthan Raghib Fillah, a web developer passionate about crafting scalable applications with Laravel, PHP, JavaScript, and modern frameworks. I love transforming complex problems into clean, user-friendly solutions."
+                : "Saya Sulthan Raghib Fillah, seorang pengembang web yang memiliki hasrat untuk merancang aplikasi yang skalabel dengan Laravel, PHP, JavaScript, dan kerangka kerja modern. Saya suka mengubah masalah kompleks menjadi solusi yang bersih dan ramah pengguna."}
             </p>
           </div>
 
@@ -181,8 +188,9 @@ export default function Home() {
                   Web Developer | Backend Engineer
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Based in Indonesia. Open for freelance projects and full-time
-                  opportunities.
+                  {language === "EN"
+                    ? "Based in Indonesia. Open for freelance projects and full-time opportunities."
+                    : "Berdomisili di Indonesia. Terbuka untuk proyek freelance dan peluang kerja penuh waktu."}
                 </p>
               </div>
             </div>
@@ -191,26 +199,23 @@ export default function Home() {
             <div className="space-y-6">
               <div>
                 <h3 className="font-heading font-bold text-xl text-foreground mb-4">
-                  My Story
+                  {language === "EN" ? "My Story" : "Cerita Saya"}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  My journey started from curiosity in technology and evolved
-                  into a career in software development. I&apos;ve built web
-                  apps, backends, and data systems using PHP, Laravel,
-                  JavaScript, and MySQL. Along the way, I also gained experience
-                  with Python and MongoDB while contributing to AI-related
-                  projects.
+                  {language === "EN"
+                    ? "My journey started from curiosity in technology and evolved into a career in software development. I've built web apps, backends, and data systems using PHP, Laravel, JavaScript, and MySQL. Along the way, I also gained experience with Python and MongoDB while contributing to AI-related projects."
+                    : "Perjalanan saya dimulai dari rasa ingin tahu dalam teknologi dan berkembang menjadi karir di pengembangan perangkat lunak. Saya telah membangun aplikasi web, backend, dan sistem data menggunakan PHP, Laravel, JavaScript, dan MySQL. Sepanjang jalan, saya juga mendapatkan pengalaman dengan Python dan MongoDB saat berkontribusi pada proyek terkait AI."}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  I enjoy learning new technologies, collaborating with teams,
-                  and ensuring every project meets both technical and business
-                  needs.
+                  {language === "EN"
+                    ? "I enjoy learning new technologies, collaborating with teams, and ensuring every project meets both technical and business needs."
+                    : "Saya menikmati belajar teknologi baru, berkolaborasi dengan tim, dan memastikan setiap proyek memenuhi kebutuhan teknis dan bisnis."}
                 </p>
               </div>
 
               <div>
                 <h3 className="font-heading font-bold text-xl text-foreground mb-4">
-                  What I Do
+                  {language === "EN" ? "What I Do" : "Apa yang Saya Lakukan"}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-3">
@@ -248,26 +253,34 @@ export default function Home() {
               <div className="text-4xl font-heading font-black text-primary mb-2">
                 10+
               </div>
-              <div className="text-muted-foreground">Projects Completed</div>
+              <div className="text-muted-foreground">
+                {language === "EN" ? "Projects Completed" : "Proyek Selesai"}
+              </div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-heading font-black text-primary mb-2">
                 2+
               </div>
-              <div className="text-muted-foreground">Years Experience</div>
+              <div className="text-muted-foreground">
+                {language === "EN" ? "Years Experience" : "Tahun Pengalaman"}
+              </div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-heading font-black text-primary mb-2">
                 5+
               </div>
-              <div className="text-muted-foreground">Clients & Teams</div>
+              <div className="text-muted-foreground">
+                {language === "EN" ? "Clients & Teams" : "Klien & Tim"}
+              </div>
             </div>
           </div>
 
           {/* Skills */}
           <div className="max-w-6xl mx-auto">
             <h3 className="font-heading font-bold text-3xl text-foreground text-center mb-12">
-              Skills & Technologies
+              {language === "EN"
+                ? "Skills & Technologies"
+                : "Keahlian & Teknologi"}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -344,12 +357,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
-              Featured Projects
+              {language === "EN" ? "Featured Projects" : "Proyek Unggulan"}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Here are some of my recent projects that showcase my skills and
-              passion for development. Each project demonstrates different
-              aspects of modern web development.
+              {language === "EN"
+                ? "Here are some of my recent projects that showcase my skills and passion for development. Each project demonstrates different aspects of modern web development."
+                : "Berikut adalah beberapa proyek terbaru saya yang menunjukkan keterampilan dan hasrat saya untuk pengembangan. Setiap proyek menunjukkan berbagai aspek pengembangan web modern."}
             </p>
           </div>
 
@@ -370,8 +383,9 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-muted-foreground mb-6">
-              Want to see more of my work? Check out my GitHub profile for
-              additional projects and contributions.
+              {language === "EN"
+                ? "Want to see more of my work? Check out my GitHub profile for additional projects and contributions."
+                : "Ingin melihat lebih banyak karya saya? Kunjungi profil GitHub saya untuk proyek dan kontribusi tambahan."}
             </p>
             <Button size="lg" variant="outline" asChild>
               <a
@@ -379,7 +393,9 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View All Projects on GitHub
+                {language === "EN"
+                  ? "View All Projects on GitHub"
+                  : "Lihat Semua Proyek di GitHub"}
                 <ExternalLink className="ml-2 h-5 w-5" />
               </a>
             </Button>
@@ -391,11 +407,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-6">
-              Let&apos;s Work Together
+              {language === "EN" ? "Let's Work Together" : "Mari Bekerja Sama"}
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Have a project in mind? I&apos;d love to hear about it. Let&apos;s
-              discuss how we can bring your ideas to life.
+              {language === "EN"
+                ? "Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your ideas to life."
+                : "Memiliki proyek dalam pikiran? Saya ingin mendengarnya. Mari kita diskusikan bagaimana kita dapat mewujudkan ide-ide Anda."}
             </p>
           </div>
 

@@ -9,10 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { useLanguage } from "./context/language-context";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { language } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,12 +38,12 @@ export function ContactForm() {
       <div className="space-y-8">
         <div>
           <h3 className="font-heading font-bold text-2xl text-foreground mb-4">
-            Get In Touch
+            {language === "EN" ? "Get In Touch" : "Hubungi Saya"}
           </h3>
           <p className="text-muted-foreground leading-relaxed mb-8">
-            I&apos;m always interested in new opportunities and exciting
-            projects. Whether you have a question, want to work together, or
-            just want to say hello, I&apos;d love to hear from you.
+            {language === "EN"
+              ? "I'm always interested in new opportunities and exciting projects. Whether you have a question, want to work together, or just want to say hello, I'd love to hear from you."
+              : "Saya selalu tertarik dengan peluang baru dan proyek menarik. Apakah Anda memiliki pertanyaan, ingin bekerja sama, atau hanya ingin menyapa, saya akan senang mendengar dari Anda."}
           </p>
         </div>
 
@@ -63,7 +65,9 @@ export function ContactForm() {
               <Phone className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h4 className="font-semibold text-foreground">Phone</h4>
+              <h4 className="font-semibold text-foreground">
+                {language === "EN" ? "Phone" : "Telepon"}
+              </h4>
               <p className="text-muted-foreground">+62 857-2188-3952</p>
             </div>
           </div>
@@ -73,8 +77,12 @@ export function ContactForm() {
               <MapPin className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h4 className="font-semibold text-foreground">Location</h4>
-              <p className="text-muted-foreground">Jakarta, Indonesia</p>
+              <h4 className="font-semibold text-foreground">
+                {language === "EN" ? "Location" : "Lokasi"}
+              </h4>
+              <p className="text-muted-foreground">
+                Jakarta Selatan, Indonesia
+              </p>
             </div>
           </div>
         </div>
@@ -92,7 +100,7 @@ export function ContactForm() {
       <Card>
         <CardHeader>
           <CardTitle className="font-heading font-bold text-xl">
-            Send a Message
+            {language === "EN" ? "Send a Message" : "Kirim Pesan"}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -101,10 +109,12 @@ export function ContactForm() {
               <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
                 <p className="font-semibold text-green-800 dark:text-green-200">
-                  Message sent!
+                  {language === "EN" ? "Message sent!" : "Pesan terkirim!"}
                 </p>
                 <p className="text-sm text-green-600 dark:text-green-300">
-                  Thank you for your message. I&apos;ll get back to you soon.
+                  {language === "EN"
+                    ? "Thank you for your message. I'll get back to you soon."
+                    : "Terima kasih atas pesan Anda. Saya akan segera menghubungi Anda."}
                 </p>
               </div>
             </div>
@@ -113,7 +123,9 @@ export function ContactForm() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName">
+                  {language === "EN" ? "First Name" : "Nama Depan"}
+                </Label>
                 <Input
                   id="firstName"
                   name="firstName"
@@ -122,7 +134,9 @@ export function ContactForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName">
+                  {language === "EN" ? "Last Name" : "Nama Belakang"}
+                </Label>
                 <Input
                   id="lastName"
                   name="lastName"
@@ -133,7 +147,9 @@ export function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">
+                {language === "EN" ? "Email" : "Email"}
+              </Label>
               <Input
                 id="email"
                 name="email"
@@ -144,7 +160,9 @@ export function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="subject">Subject</Label>
+              <Label htmlFor="subject">
+                {language === "EN" ? "Subject" : "Subjek"}
+              </Label>
               <Input
                 id="subject"
                 name="subject"
@@ -154,7 +172,9 @@ export function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
+              <Label htmlFor="message">
+                {language === "EN" ? "Message" : "Pesan"}
+              </Label>
               <Textarea
                 id="message"
                 name="message"
