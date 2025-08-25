@@ -173,7 +173,7 @@ export default function Home() {
             <div className="flex flex-col items-center lg:items-start">
               <div className="w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mb-6 flex items-center justify-center border-4 border-primary/10">
                 <Image
-                  src="/profile.jpg" // ganti dengan fotomu
+                  src="/assets/my-self.jpg"
                   alt="Sulthan Raghib Fillah - Web Developer"
                   className="w-56 h-56 rounded-full object-cover"
                   width={224}
