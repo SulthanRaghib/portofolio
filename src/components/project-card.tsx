@@ -58,14 +58,15 @@ export function ProjectCard({
                 size="sm"
                 variant="secondary"
                 asChild
-                className="bg-background/90 hover:bg-background text-black"
+                className="bg-background/90 hover:bg-background text-foreground"
               >
                 <Link
                   href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center"
                 >
-                  <Github className="h-4 w-4 mr-1 text-black" />
+                  <Github className="h-4 w-4 mr-1 text-foreground" />
                   Code
                 </Link>
               </Button>
