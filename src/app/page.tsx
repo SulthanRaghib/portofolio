@@ -21,71 +21,41 @@ import { useLanguage } from "@/components/context/language-context";
 
 const projects = [
   {
-    title: "E-Commerce Platform",
+    title: "Company Profile Jasproland",
     description:
-      "A full-stack e-commerce solution built with Next.js and Stripe integration. Features include user authentication, product management, shopping cart, and secure payment processing.",
-    image: "/modern-ecommerce-dashboard.png",
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "Stripe",
-      "PostgreSQL",
-      "Tailwind CSS",
-    ],
-    demoUrl: "https://ecommerce-demo.example.com",
-    githubUrl: "https://github.com/johndoe/ecommerce-platform",
+      "Developed a company profile website using Laravel 12 with MVC architecture, featuring clean and scalable code. The project included on-page SEO optimization (dynamic meta tags, semantic headings, XML sitemap, and speed improvements) to enhance search rankings, and an SMTP-integrated contact form for secure, automated admin email delivery.",
+    image: "/assets/proyek/jasproland.png",
+    technologies: ["Laravel", "PHP", "SMTP", "SEO", "Bootstrap"],
+    demoUrl: "https://jasproland.com/",
+    githubUrl: "https://github.com/SulthanRaghib/pro-land",
     featured: true,
   },
   {
-    title: "Task Management App",
+    title: "Nexcent",
     description:
-      "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-    image: "/task-management-app.png",
-    technologies: ["React", "Node.js", "Socket.io", "MongoDB", "Material-UI"],
-    demoUrl: "https://taskapp-demo.example.com",
-    githubUrl: "https://github.com/johndoe/task-manager",
+      "This project was developed using React.js following a structured folder format, without relying on CSS frameworks like Bootstrap or Tailwind. It focuses on implementing core layout and styling from scratch, though it has not yet been optimized for responsiveness, hover effects, or animations.",
+    image: "/assets/proyek/nexcent.png",
+    technologies: ["React", "HTML", "CSS"],
+    demoUrl: "https://nexcent-xi-one.vercel.app/",
+    githubUrl: "https://github.com/SulthanRaghib/nexcent",
   },
   {
-    title: "Weather Dashboard",
+    title: "Website of Architects",
     description:
-      "A responsive weather dashboard that displays current conditions, forecasts, and interactive maps using multiple weather APIs.",
-    image: "/preview/project4.png",
-    technologies: ["Vue.js", "Chart.js", "OpenWeather API", "Mapbox", "SCSS"],
-    demoUrl: "https://weather-dashboard.example.com",
-    githubUrl: "https://github.com/johndoe/weather-dashboard",
+      "A simple static website built as part of my frontend learning journey, created using only basic HTML tags such as <div>, <p>, <img>, and <button>. This project focuses on practicing structure and layout fundamentals without responsiveness.",
+    image: "/assets/proyek/website-of-architects.png",
+    technologies: ["React", "HTML", "CSS"],
+    demoUrl: "https://website-of-architects-two.vercel.app/",
+    githubUrl: "https://github.com/SulthanRaghib/website-of-architects",
   },
   {
-    title: "Social Media Analytics",
+    title: "Brawijaya Healthy Chatbot",
     description:
-      "A comprehensive analytics platform for social media managers to track engagement, growth metrics, and content performance across multiple platforms.",
-    image: "/social-media-analytics-dashboard.png",
-    technologies: ["React", "D3.js", "Python", "FastAPI", "Redis"],
-    demoUrl: "https://analytics-demo.example.com",
-    githubUrl: "https://github.com/johndoe/social-analytics",
-  },
-  {
-    title: "Recipe Sharing Platform",
-    description:
-      "A community-driven recipe sharing platform where users can create, share, and discover new recipes with advanced search and filtering capabilities.",
-    image: "/recipe-sharing-website.png",
-    technologies: [
-      "Next.js",
-      "Prisma",
-      "PostgreSQL",
-      "Cloudinary",
-      "NextAuth.js",
-    ],
-    demoUrl: "https://recipes-demo.example.com",
-    githubUrl: "https://github.com/johndoe/recipe-platform",
-  },
-  {
-    title: "Fitness Tracker Mobile App",
-    description:
-      "A cross-platform mobile application for tracking workouts, nutrition, and fitness goals with offline capabilities and data synchronization.",
-    image: "/fitness-tracking-app.png",
-    technologies: ["React Native", "Expo", "SQLite", "Redux", "Firebase"],
-    demoUrl: "https://fitness-app.example.com",
-    githubUrl: "https://github.com/johndoe/fitness-tracker",
+      "Developed an AI-powered health chatbot on the Smojo AI platform, integrating NLP to interpret user symptom inputs and provide initial recommendations. Enhanced user engagement by creating an interactive quiz-style chatbot game covering health and general knowledge, while designing a responsive and intuitive UI/UX for seamless access.",
+    image: "/assets/proyek/brawijaya-healthy-chatbot.png",
+    technologies: ["Smojo AI", "LLM", "Chatbot"],
+    demoUrl: "https://app.smojo.org/pentavortex/mari-sehat",
+    githubUrl: "",
   },
 ];
 
