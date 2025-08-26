@@ -65,6 +65,29 @@ const projects = [
     demoUrl: "https://app.smojo.org/pentavortex/mari-sehat",
     githubUrl: "",
   },
+  {
+    title: "Spatiall Peta Tematik",
+    description: {
+      en: "An interactive web application built with the Leaflet JavaScript library to visualize spatial data of DKI Jakarta. The project displays administrative boundaries, highlights population distribution for density analysis, and maps the spread of HIV/AIDS cases across different areas to support public health insights.",
+      id: "Sebuah aplikasi web interaktif yang dibangun dengan pustaka JavaScript Leaflet untuk memvisualisasikan data spasial DKI Jakarta. Proyek ini menampilkan batas administratif, menyoroti distribusi populasi untuk analisis kepadatan, dan memetakan penyebaran kasus HIV/AIDS di berbagai daerah untuk mendukung wawasan kesehatan masyarakat.",
+    },
+    image:
+      "https://raw.githubusercontent.com/SulthanRaghib/peta-tematik/master/public/assets/img/task.png",
+    technologies: ["Laravel", "Leaflet", "JavaScript", "Web Development"],
+    demoUrl: "",
+    githubUrl: "https://github.com/SulthanRaghib/peta-tematik",
+  },
+  {
+    title: "QnA Backend",
+    description: {
+      en: "Developed an interactive chatbot leveraging Natural Language Processing (NLP) and Large Language Models (LLM), implementing prompt engineering, data processing, and collection pipelines to improve accuracy. Built with Web Smojo AI, the chatbot features database integration, user management, and user metrics analysis to enhance performance and engagement.",
+      id: "Mengembangkan chatbot interaktif yang memanfaatkan Pemrosesan Bahasa Alami (NLP) dan Model Bahasa Besar (LLM), menerapkan rekayasa prompt, pemrosesan data, dan saluran pengumpulan untuk meningkatkan akurasi. Dibangun dengan Web Smojo AI, chatbot ini memiliki integrasi basis data, manajemen pengguna, dan analisis metrik pengguna untuk meningkatkan kinerja dan keterlibatan.",
+    },
+    image: "/assets/proyek/rafii-yuki-chatbot.png",
+    technologies: ["Smojo AI", "LLM", "Chatbot"],
+    demoUrl: "https://app.smojo.org/raghib/Rafii-Yuuki-Bot",
+    githubUrl: "",
+  },
 ];
 
 export default function Home() {
@@ -229,7 +252,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
             <div className="text-center">
               <div className="text-4xl font-heading font-black text-primary mb-2">
-                10+
+                5+
               </div>
               <div className="text-muted-foreground">
                 {language === "EN" ? "Projects Completed" : "Proyek Selesai"}
@@ -237,7 +260,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="text-4xl font-heading font-black text-primary mb-2">
-                2+
+                {language === "EN" ? "Fresh Graduate" : "Lulusan Baru"}
               </div>
               <div className="text-muted-foreground">
                 {language === "EN" ? "Years Experience" : "Tahun Pengalaman"}
@@ -245,7 +268,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="text-4xl font-heading font-black text-primary mb-2">
-                5+
+                1+
               </div>
               <div className="text-muted-foreground">
                 {language === "EN" ? "Clients & Teams" : "Klien & Tim"}
@@ -272,7 +295,7 @@ export default function Home() {
                   <div className="space-y-2 text-sm text-muted-foreground">
                     <div>React / Next.js</div>
                     <div>JavaScript (ES6+)</div>
-                    <div>HTML, CSS, Tailwind</div>
+                    <div>HTML, CSS, Bootstrap, Tailwind</div>
                   </div>
                 </CardContent>
               </Card>
@@ -301,10 +324,10 @@ export default function Home() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary">Git & GitHub</Badge>
-                    <Badge variant="secondary">Docker</Badge>
                     <Badge variant="secondary">Vercel</Badge>
                     <Badge variant="secondary">SEO Basics</Badge>
                     <Badge variant="secondary">Figma</Badge>
+                    <Badge variant="secondary">Postman</Badge>
                   </div>
                 </CardContent>
               </Card>
