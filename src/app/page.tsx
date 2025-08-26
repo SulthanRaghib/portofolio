@@ -78,7 +78,7 @@ const projects = [
     githubUrl: "https://github.com/SulthanRaghib/peta-tematik",
   },
   {
-    title: "QnA Backend",
+    title: "Rafii Yuuki Chatbot",
     description: {
       en: "Developed an interactive chatbot leveraging Natural Language Processing (NLP) and Large Language Models (LLM), implementing prompt engineering, data processing, and collection pipelines to improve accuracy. Built with Web Smojo AI, the chatbot features database integration, user management, and user metrics analysis to enhance performance and engagement.",
       id: "Mengembangkan chatbot interaktif yang memanfaatkan Pemrosesan Bahasa Alami (NLP) dan Model Bahasa Besar (LLM), menerapkan rekayasa prompt, pemrosesan data, dan saluran pengumpulan untuk meningkatkan akurasi. Dibangun dengan Web Smojo AI, chatbot ini memiliki integrasi basis data, manajemen pengguna, dan analisis metrik pengguna untuk meningkatkan kinerja dan keterlibatan.",
