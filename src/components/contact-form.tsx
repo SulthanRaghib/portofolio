@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 import { useLanguage } from "./context/language-context";
+import emailjs from "emailjs-com";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,15 +22,26 @@ export function ContactForm() {
     setIsSubmitting(true);
     setIsSuccess(false);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setIsSuccess(true);
-    setIsSubmitting(false);
-
     const form = e.target as HTMLFormElement;
-    form.reset();
 
-    setTimeout(() => setIsSuccess(false), 5000);
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        form,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+      );
+
+      setIsSuccess(true);
+      form.reset();
+
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Terjadi kesalahan saat mengirim pesan. Coba lagi nanti.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -193,11 +205,11 @@ export function ContactForm() {
               {isSubmitting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                  Sending...
+                  {language === "EN" ? "Sending..." : "Mengirim..."}
                 </>
               ) : (
                 <>
-                  Send Message
+                  {language === "EN" ? "Send Message" : "Kirim Pesan"}
                   <Send className="ml-2 h-4 w-4" />
                 </>
               )}
