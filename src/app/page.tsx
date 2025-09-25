@@ -71,8 +71,7 @@ const projects = [
       en: "An interactive web application built with the Leaflet JavaScript library to visualize spatial data of DKI Jakarta. The project displays administrative boundaries, highlights population distribution for density analysis, and maps the spread of HIV/AIDS cases across different areas to support public health insights.",
       id: "Sebuah aplikasi web interaktif yang dibangun dengan pustaka JavaScript Leaflet untuk memvisualisasikan data spasial DKI Jakarta. Proyek ini menampilkan batas administratif, menyoroti distribusi populasi untuk analisis kepadatan, dan memetakan penyebaran kasus HIV/AIDS di berbagai daerah untuk mendukung wawasan kesehatan masyarakat.",
     },
-    image:
-      "https://raw.githubusercontent.com/SulthanRaghib/peta-tematik/master/public/assets/img/task.png",
+    image: "/assets/proyek/peta-tematik.png",
     technologies: ["Laravel", "Leaflet", "JavaScript", "Web Development"],
     demoUrl: "",
     githubUrl: "https://github.com/SulthanRaghib/peta-tematik",
