@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   description:
     "Personal portfolio showcasing my projects and skills as a web developer & backend engineer",
   generator: "v0.app",
+  verification: {
+    google: "Yg9EcjKy2fN7R-mCcoCZUbuJh80Ydb95an9XHGbXxrM",
+  },
 };
 
 export default function RootLayout({
