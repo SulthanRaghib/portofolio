@@ -1,0 +1,20 @@
+# Netlify config untuk Next.js + Sitemap + Robots
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[headers]]
+for = "/sitemap.xml"
+  [headers.values]
+  Content-Type = "application/xml; charset=utf-8"
+
+[[headers]]
+for = "/robots.txt"
+  [headers.values]
+  Content-Type = "text/plain; charset=utf-8"
+
+[[headers]]
+for = "/_next/static/*"
+  [headers.values]
+  Cache-Control = "public, max-age=31536000, immutable"
