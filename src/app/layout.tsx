@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "Personal portfolio showcasing my projects and skills as a web developer & backend engineer",
   generator: "Next.js",
   verification: {
-    google: "ZF6_KqDelVfAZgmp52UnLopGxJnq8oagSXUFB3uHeNE", // Google Search Console
+    google: "Yg9EcjKy2fN7R-mCcoCZUbuJh80Ydb95an9XHGbXxrM", // Google Search Console
   },
   keywords: [
     "Web Developer",
