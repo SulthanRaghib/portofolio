@@ -13,9 +13,20 @@ export interface Project {
   updatedAt: string;
 }
 
+export type Pagination = {
+  currentPage?: number;
+  totalPages?: number;
+  totalItems?: number;
+  itemsPerPage?: number;
+  hasNextPage?: boolean;
+  hasPrevPage?: boolean;
+  nextPage?: number | null;
+  prevPage?: number | null;
+};
+
 export type ProjectsResponse = {
   success: boolean;
   data: Project[];
-  pagination?: Record<string, any>;
+  pagination?: Pagination;
   links?: Record<string, string | null>;
 };
