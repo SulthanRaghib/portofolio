@@ -33,17 +33,22 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <Button size="lg" className="text-lg px-8 py-6 font-semibold group">
-            {language === "EN" ? "View My Work" : "Lihat Karyaku"}
-            <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          <Button size="lg" className="text-lg px-8 py-6 font-semibold group" asChild>
+            <a href="#projects" className="text-lg px-8 py-6 font-semibold group inline-flex items-center">
+              {language === "EN" ? "View My Work" : "Lihat Karyaku"}
+              <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </a>
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="text-lg px-8 py-6 font-semibold group bg-transparent"
-          >
-            {language === "EN" ? "Download Resume" : "Unduh Resume"}
-            <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+
+          <Button variant="outline" size="lg" className="text-lg px-8 py-6 font-semibold group" asChild>
+            <a
+              href="/assets/Resume_Sulthan-Raghib-Fillah.pdf"
+              download
+              className="text-lg px-8 py-6 font-semibold group inline-flex items-center bg-transparent"
+            >
+              {language === "EN" ? "Download Resume" : "Unduh Resume"}
+              <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+            </a>
           </Button>
         </div>
 

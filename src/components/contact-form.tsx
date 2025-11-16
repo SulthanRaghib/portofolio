@@ -16,9 +16,53 @@ export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { language } = useLanguage();
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Partial<typeof values>>({});
+
+  function validateField(name: keyof typeof values, value: string) {
+    const v = value?.trim() ?? "";
+    if (name === "email") {
+      if (!v) return language === "EN" ? "Email is required" : "Email wajib diisi";
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!re.test(v)) return language === "EN" ? "Enter a valid email" : "Masukkan email yang valid";
+      return "";
+    }
+    if (!v) return language === "EN" ? "This field is required" : "Field ini wajib diisi";
+    return "";
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setValues((s) => ({ ...s, [name]: value }));
+    // clear error while typing
+    setErrors((s) => ({ ...s, [name]: undefined }));
+  }
+
+  function handleBlur(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    const msg = validateField(name as keyof typeof values, value);
+    setErrors((s) => ({ ...s, [name]: msg || undefined }));
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // client-side validation
+    const allErrors: Partial<typeof values> = {};
+    (Object.keys(values) as Array<keyof typeof values>).forEach((k) => {
+      const msg = validateField(k, values[k] as string);
+      if (msg) allErrors[k] = msg;
+    });
+    if (Object.keys(allErrors).length > 0) {
+      setErrors(allErrors);
+      return;
+    }
+
     setIsSubmitting(true);
     setIsSuccess(false);
 
@@ -33,7 +77,10 @@ export function ContactForm() {
       );
 
       setIsSuccess(true);
+      // reset both DOM form and controlled state
       form.reset();
+      setValues({ firstName: "", lastName: "", email: "", subject: "", message: "" });
+      setErrors({});
 
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {
@@ -142,8 +189,14 @@ export function ContactForm() {
                   id="firstName"
                   name="firstName"
                   placeholder="John"
-                  required
+                  value={values.firstName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={errors.firstName ? "border-destructive" : ""}
                 />
+                {errors.firstName && (
+                  <p className="text-sm text-destructive mt-1">{errors.firstName}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">
@@ -153,47 +206,58 @@ export function ContactForm() {
                   id="lastName"
                   name="lastName"
                   placeholder="Doe"
-                  required
+                  value={values.lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={errors.lastName ? "border-destructive" : ""}
                 />
+                {errors.lastName && (
+                  <p className="text-sm text-destructive mt-1">{errors.lastName}</p>
+                )}
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">
-                {language === "EN" ? "Email" : "Email"}
-              </Label>
+              <Label htmlFor="email">{language === "EN" ? "Email" : "Email"}</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
                 placeholder="you@example.com"
-                required
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={errors.email ? "border-destructive" : ""}
               />
+              {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="subject">
-                {language === "EN" ? "Subject" : "Subjek"}
-              </Label>
+              <Label htmlFor="subject">{language === "EN" ? "Subject" : "Subjek"}</Label>
               <Input
                 id="subject"
                 name="subject"
                 placeholder="Project Inquiry"
-                required
+                value={values.subject}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={errors.subject ? "border-destructive" : ""}
               />
+              {errors.subject && <p className="text-sm text-destructive mt-1">{errors.subject}</p>}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message">
-                {language === "EN" ? "Message" : "Pesan"}
-              </Label>
+              <Label htmlFor="message">{language === "EN" ? "Message" : "Pesan"}</Label>
               <Textarea
                 id="message"
                 name="message"
                 placeholder="Tell me about your project or how I can help..."
-                required
-                className="min-h-[120px] resize-none"
+                value={values.message}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={`min-h-[120px] resize-none ${errors.message ? "border-destructive" : ""}`}
               />
+              {errors.message && <p className="text-sm text-destructive mt-1">{errors.message}</p>}
             </div>
 
             <Button
