@@ -21,6 +21,7 @@ import Image from "next/image";
 import { useLanguage } from "@/components/context/language-context";
 import { getProjects } from "@/lib/api";
 import type { Project } from "@/types/project";
+import ProjectCardSkeleton from "@/components/project-card-skeleton";
 
 
 export default function Home() {
@@ -339,9 +340,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {loading && (
-              <div className="col-span-full text-center text-muted-foreground">
-                Loading projects...
-              </div>
+              // Render 6 skeletons for perceived performance with staggered delays
+              Array.from({ length: 6 }).map((_, i) => (
+                <ProjectCardSkeleton key={`skeleton-${i}`} featured={i === 0} delay={i * 80} />
+              ))
             )}
 
             {error && (
