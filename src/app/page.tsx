@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
@@ -18,79 +19,49 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/components/context/language-context";
+import { getProjects } from "@/lib/api";
+import type { Project } from "@/types/project";
 
-const projects = [
-  {
-    title: "Company Profile Jasproland",
-    description: {
-      en: "Developed a company profile website using Laravel 12 with MVC architecture, featuring clean and scalable code. The project included on-page SEO optimization (dynamic meta tags, semantic headings, XML sitemap, and speed improvements) to enhance search rankings, and an SMTP-integrated contact form for secure, automated admin email delivery.",
-      id: "Mengembangkan website profil perusahaan menggunakan Laravel 12 dengan arsitektur MVC, dengan kode yang bersih dan mudah dikembangkan. Proyek ini mencakup optimasi SEO on-page (meta tag dinamis, heading semantik, sitemap XML, dan peningkatan kecepatan) untuk meningkatkan peringkat pencarian, serta form kontak terintegrasi SMTP untuk pengiriman email admin yang aman dan otomatis.",
-    },
-    image: "/assets/proyek/jasproland.png",
-    technologies: ["Laravel", "PHP", "SMTP", "SEO", "Bootstrap"],
-    demoUrl: "https://jasproland.com/",
-    githubUrl: "https://github.com/SulthanRaghib/pro-land",
-    featured: true,
-  },
-  {
-    title: "Nexcent",
-    description: {
-      en: "This project was developed using React.js following a structured folder format, without relying on CSS frameworks like Bootstrap or Tailwind. It focuses on implementing core layout and styling from scratch, though it has not yet been optimized for responsiveness, hover effects, or animations.",
-      id: "Proyek ini dikembangkan menggunakan React.js dengan format folder yang terstruktur, tanpa menggunakan framework CSS seperti Bootstrap atau Tailwind. Fokusnya pada implementasi layout dan styling dasar dari nol, meskipun belum dioptimalkan untuk responsivitas, efek hover, atau animasi.",
-    },
-    image: "/assets/proyek/nexcent.png",
-    technologies: ["React", "HTML", "CSS"],
-    demoUrl: "https://nexcent-xi-one.vercel.app/",
-    githubUrl: "https://github.com/SulthanRaghib/nexcent",
-  },
-  {
-    title: "Website of Architects",
-    description: {
-      en: "A simple static website built as part of my frontend learning journey, created using only basic HTML tags such as <div>, <p>, <img>, and <button>. This project focuses on practicing structure and layout fundamentals without responsiveness.",
-      id: "Website statis sederhana yang dibuat sebagai bagian dari pembelajaran frontend saya, hanya menggunakan tag HTML dasar seperti <div>, <p>, <img>, dan <button>. Proyek ini berfokus pada latihan struktur dan dasar layout tanpa responsivitas.",
-    },
-    image: "/assets/proyek/website-of-architects.png",
-    technologies: ["React", "HTML", "CSS"],
-    demoUrl: "https://website-of-architects-two.vercel.app/",
-    githubUrl: "https://github.com/SulthanRaghib/website-of-architects",
-  },
-  {
-    title: "Brawijaya Healthy Chatbot",
-    description: {
-      en: "Developed an AI-powered health chatbot on the Smojo AI platform, integrating NLP to interpret user symptom inputs and provide initial recommendations. Enhanced user engagement by creating an interactive quiz-style chatbot game covering health and general knowledge, while designing a responsive and intuitive UI/UX for seamless access.",
-      id: "Mengembangkan chatbot kesehatan berbasis AI di platform Smojo AI, mengintegrasikan NLP untuk memahami input gejala pengguna dan memberikan rekomendasi awal. Meningkatkan interaksi pengguna dengan membuat permainan chatbot berbasis kuis tentang kesehatan dan topik umum, serta merancang UI/UX yang responsif dan intuitif untuk akses yang mudah.",
-    },
-    image: "/assets/proyek/brawijaya-healthy-chatbot.png",
-    technologies: ["Smojo AI", "LLM", "Chatbot"],
-    demoUrl: "https://app.smojo.org/pentavortex/mari-sehat",
-    githubUrl: "",
-  },
-  {
-    title: "Spatiall Peta Tematik",
-    description: {
-      en: "An interactive web application built with the Leaflet JavaScript library to visualize spatial data of DKI Jakarta. The project displays administrative boundaries, highlights population distribution for density analysis, and maps the spread of HIV/AIDS cases across different areas to support public health insights.",
-      id: "Sebuah aplikasi web interaktif yang dibangun dengan pustaka JavaScript Leaflet untuk memvisualisasikan data spasial DKI Jakarta. Proyek ini menampilkan batas administratif, menyoroti distribusi populasi untuk analisis kepadatan, dan memetakan penyebaran kasus HIV/AIDS di berbagai daerah untuk mendukung wawasan kesehatan masyarakat.",
-    },
-    image: "/assets/proyek/peta-tematik.png",
-    technologies: ["Laravel", "Leaflet", "JavaScript", "Web Development"],
-    demoUrl: "",
-    githubUrl: "https://github.com/SulthanRaghib/peta-tematik",
-  },
-  {
-    title: "Rafii Yuuki Chatbot",
-    description: {
-      en: "Developed an interactive chatbot leveraging Natural Language Processing (NLP) and Large Language Models (LLM), implementing prompt engineering, data processing, and collection pipelines to improve accuracy. Built with Web Smojo AI, the chatbot features database integration, user management, and user metrics analysis to enhance performance and engagement.",
-      id: "Mengembangkan chatbot interaktif yang memanfaatkan Pemrosesan Bahasa Alami (NLP) dan Model Bahasa Besar (LLM), menerapkan rekayasa prompt, pemrosesan data, dan saluran pengumpulan untuk meningkatkan akurasi. Dibangun dengan Web Smojo AI, chatbot ini memiliki integrasi basis data, manajemen pengguna, dan analisis metrik pengguna untuk meningkatkan kinerja dan keterlibatan.",
-    },
-    image: "/assets/proyek/rafii-yuki-chatbot.png",
-    technologies: ["Smojo AI", "LLM", "Chatbot"],
-    demoUrl: "https://app.smojo.org/raghib/Rafii-Yuuki-Bot",
-    githubUrl: "",
-  },
-];
 
 export default function Home() {
   const { language } = useLanguage();
+
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    getProjects({ limit: 9 })
+      .then((res) => {
+        if (!mounted) return;
+        const list = res.data ?? [];
+        // Sort: featured first, then by `order` (ascending), then newest `createdAt` first
+        const sorted = list.sort((a, b) => {
+          const byFeatured = (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+          if (byFeatured !== 0) return byFeatured;
+          const byOrder = (a.order ?? 0) - (b.order ?? 0);
+          if (byOrder !== 0) return byOrder;
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        });
+        setProjects(sorted);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        setError(err?.message ?? "Failed to load projects");
+      })
+      .finally(() => {
+        if (!mounted) return;
+        setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <main className="min-h-screen">
@@ -366,21 +337,40 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {projects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                title={project.title}
-                description={
-                  project.description[language === "EN" ? "en" : "id"]
-                }
-                image={project.image}
-                technologies={project.technologies}
-                demoUrl={project.demoUrl}
-                githubUrl={project.githubUrl}
-                featured={index === 0}
-              />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {loading && (
+              <div className="col-span-full text-center text-muted-foreground">
+                Loading projects...
+              </div>
+            )}
+
+            {error && (
+              <div className="col-span-full text-center text-destructive">
+                {error}
+              </div>
+            )}
+
+            {!loading && !error && projects.length === 0 && (
+              <div className="col-span-full text-center text-muted-foreground">
+                No projects found.
+              </div>
+            )}
+
+            {!loading &&
+              projects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  title={project.title}
+                  description={
+                    language === "EN" ? project.descriptionEn : project.descriptionId
+                  }
+                  image={project.image}
+                  technologies={project.technologies}
+                  demoUrl={project.demoUrl ?? ""}
+                  githubUrl={project.githubUrl ?? ""}
+                  featured={project.featured}
+                />
+              ))}
           </div>
 
           <div className="text-center">
