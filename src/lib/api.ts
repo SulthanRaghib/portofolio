@@ -13,7 +13,9 @@ export type GetProjectsParams = {
   sortOrder?: "asc" | "desc";
 };
 
-function buildUrl(path: string, params?: Record<string, any>) {
+type QueryValue = string | number | boolean | null | undefined;
+
+function buildUrl(path: string, params?: Record<string, QueryValue>) {
   const base = DEFAULT_BASE.replace(/\/$/, "");
   const url = new URL(`${base}${path.startsWith("/") ? "" : "/"}${path}`);
   if (params) {
@@ -26,7 +28,7 @@ function buildUrl(path: string, params?: Record<string, any>) {
 }
 
 export async function getProjects(params?: GetProjectsParams): Promise<ProjectsResponse> {
-  const query: Record<string, any> = {};
+  const query: Record<string, QueryValue> = {};
   if (params) {
     if (params.page) query.page = params.page;
     if (params.limit) query.limit = params.limit;
@@ -67,5 +69,5 @@ export async function getProjectById(id: string): Promise<{ success: boolean; da
     const text = await res.text();
     throw new Error(`Failed to fetch project ${id}: ${res.status} ${res.statusText} - ${text}`);
   }
-  return res.json();
+  return (await res.json()) as { success: boolean; data?: Project };
 }
