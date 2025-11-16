@@ -126,8 +126,14 @@
     @apply bg-background text-foreground;
   }
   /* Added smooth scroll behavior for navigation */
+  /* Smooth scroll but respect user's reduced motion preference */
   html {
     scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
