@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
@@ -19,50 +19,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/components/context/language-context";
-import { getProjects } from "@/lib/api";
-import type { Project } from "@/types/project";
+import useProjects from "@/hooks/use-projects";
 import ProjectCardSkeleton from "@/components/project-card-skeleton";
 
 
 export default function Home() {
   const { language } = useLanguage();
-
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-    setLoading(true);
-    getProjects({ limit: 9 })
-      .then((res) => {
-        if (!mounted) return;
-        const list = res.data ?? [];
-        // Sort: featured first, then by `order` (ascending), then newest `createdAt` first
-        const sorted = list.sort((a, b) => {
-          const byFeatured = (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
-          if (byFeatured !== 0) return byFeatured;
-          const byOrder = (a.order ?? 0) - (b.order ?? 0);
-          if (byOrder !== 0) return byOrder;
-          return (
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
-        });
-        setProjects(sorted);
-      })
-      .catch((err) => {
-        if (!mounted) return;
-        setError(err?.message ?? "Failed to load projects");
-      })
-      .finally(() => {
-        if (!mounted) return;
-        setLoading(false);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  const { projects, loading, error } = useProjects({ limit: 9 });
 
   return (
     <main className="min-h-screen">
