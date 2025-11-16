@@ -130,3 +130,17 @@
     scroll-behavior: smooth;
   }
 }
+
+/* Global shimmer styles for skeleton placeholders */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1200ms linear infinite;
+  mix-blend-mode: overlay;
+  opacity: 0.9;
+}
+
