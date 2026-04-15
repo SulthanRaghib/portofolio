@@ -11,7 +11,7 @@ import Link from "next/link";
 export default function ProjectsSection() {
   const { language } = useLanguage();
   const { projects, loading, error } = useProjects({
-    limit: 3,
+    limit: 4,
     featured: true,
   });
 
@@ -21,7 +21,7 @@ export default function ProjectsSection() {
       className="projects-section-bg relative overflow-hidden py-24 md:py-28 bg-background"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
-        <div className="text-center mb-14 md:mb-18">
+        <div className="text-center mb-12 md:mb-14">
           <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-5 tracking-tight">
             {language === "EN" ? "Featured Projects" : "Proyek Unggulan"}
           </h2>
@@ -32,9 +32,9 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 mb-14">
+        <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 md:gap-8 mb-14">
           {loading &&
-            Array.from({ length: 3 }).map((_, i) => (
+            Array.from({ length: 4 }).map((_, i) => (
               <ProjectCardSkeleton
                 key={`skeleton-${i}`}
                 prominent={i === 0}
@@ -70,7 +70,7 @@ export default function ProjectsSection() {
                 demoUrl={project.demoUrl ?? ""}
                 githubUrl={project.githubUrl ?? ""}
                 featured={project.featured}
-                prominent={index === 0}
+                prominent={false}
                 compact
                 animationDelay={index * 80}
               />

@@ -51,7 +51,7 @@ export default function useProjects({
     } finally {
       setLoading(false);
     }
-  }, [limit]);
+  }, [limit, featured]);
 
   useEffect(() => {
     let mounted = true;

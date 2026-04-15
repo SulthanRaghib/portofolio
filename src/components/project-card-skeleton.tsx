@@ -14,16 +14,14 @@ export function ProjectCardSkeleton({
   delay = 0,
 }: Props) {
   const imgClass = compact
-    ? prominent
-      ? "h-64 md:h-72 lg:h-80"
-      : "h-44 md:h-48 lg:h-56"
+    ? "h-44 md:h-48 lg:h-52"
     : prominent
       ? "h-72 md:h-80 lg:h-96"
       : "h-52 md:h-56 lg:h-64";
 
   return (
     <Card
-      className={`h-full flex flex-col relative overflow-hidden rounded-2xl border border-border/70 bg-card/90 ${prominent ? "md:col-span-2 lg:col-span-2" : ""}`}
+      className={`h-full flex flex-col relative overflow-hidden rounded-2xl border border-border/70 bg-card/90 ${prominent && !compact ? "md:col-span-2 lg:col-span-2" : ""}`}
     >
       <div
         className={`${imgClass} bg-slate-700/30 dark:bg-slate-600/30 relative overflow-hidden`}

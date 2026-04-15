@@ -81,7 +81,7 @@ export function ProjectCard({
   return (
     <Card
       className={`group project-reveal overflow-hidden border border-border/70 bg-card/90 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full flex flex-col rounded-2xl backdrop-blur-sm ${
-        prominent ? "md:col-span-2 lg:col-span-2" : ""
+        prominent && !compact ? "md:col-span-2 lg:col-span-2" : ""
       }`}
       style={{ animationDelay: `${animationDelay}ms` }}
     >
@@ -89,9 +89,7 @@ export function ProjectCard({
       <div
         className={`relative overflow-hidden w-full flex-shrink-0 ${
           compact
-            ? prominent
-              ? "h-64 md:h-72 lg:h-80"
-              : "h-44 md:h-48 lg:h-56"
+            ? "h-44 md:h-48 lg:h-52"
             : prominent
               ? "h-72 md:h-80 lg:h-96"
               : "h-52 md:h-56 lg:h-64"
