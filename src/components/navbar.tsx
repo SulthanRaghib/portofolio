@@ -15,10 +15,10 @@ export function Navbar() {
   const { language, toggleLanguage } = useLanguage();
 
   const navItems = [
-    { name: language === "EN" ? "Home" : "Beranda", href: "#home" },
-    { name: language === "EN" ? "About" : "Tentang", href: "#about" },
-    { name: language === "EN" ? "Projects" : "Proyek", href: "#projects" },
-    { name: language === "EN" ? "Contact" : "Kontak", href: "#contact" },
+    { name: language === "EN" ? "Home" : "Beranda", href: "/#home" },
+    { name: language === "EN" ? "About" : "Tentang", href: "/#about" },
+    { name: language === "EN" ? "Projects" : "Proyek", href: "/#projects" },
+    { name: language === "EN" ? "Contact" : "Kontak", href: "/#contact" },
   ];
 
   return (
@@ -27,7 +27,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link
-            href="#home"
+            href="/#home"
             className="font-heading font-black text-xl text-primary"
           >
             {language === "EN" ? "Sulthan Raghib" : "Sulthan Raghib"}

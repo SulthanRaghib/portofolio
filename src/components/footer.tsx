@@ -15,7 +15,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-2">
             <Link
-              href="#home"
+              href="/#home"
               className="font-heading font-black text-2xl text-primary mb-4 block"
             >
               Sulthan Raghib Fillah
@@ -62,7 +62,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="#home"
+                  href="/#home"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   {language === "EN" ? "Home" : "Beranda"}
@@ -70,7 +70,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#about"
+                  href="/#about"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   {language === "EN" ? "About" : "Tentang"}
@@ -78,7 +78,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#projects"
+                  href="/#projects"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   {language === "EN" ? "Projects" : "Proyek"}
@@ -86,7 +86,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
                   {language === "EN" ? "Contact" : "Kontak"}
