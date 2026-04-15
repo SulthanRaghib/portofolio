@@ -10,7 +10,10 @@ import Link from "next/link";
 
 export default function ProjectsSection() {
   const { language } = useLanguage();
-  const { projects, loading, error } = useProjects({ limit: 6 });
+  const { projects, loading, error } = useProjects({
+    limit: 3,
+    featured: true,
+  });
 
   return (
     <section
@@ -24,18 +27,19 @@ export default function ProjectsSection() {
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {language === "EN"
-              ? "Here are some of my recent projects that showcase my skills and passion for development. Each project demonstrates different aspects of modern web development."
-              : "Berikut adalah beberapa proyek terbaru saya yang menunjukkan keterampilan dan hasrat saya untuk pengembangan. Setiap proyek menunjukkan berbagai aspek pengembangan web modern."}
+              ? "A curated selection of featured work. Open the full projects page to explore the complete collection with filters and sorting."
+              : "Pilihan proyek unggulan yang sudah dikurasi. Buka halaman proyek lengkap untuk melihat semua proyek dengan filter dan sorting."}
           </p>
         </div>
 
         <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 mb-14">
           {loading &&
-            Array.from({ length: 6 }).map((_, i) => (
+            Array.from({ length: 3 }).map((_, i) => (
               <ProjectCardSkeleton
                 key={`skeleton-${i}`}
                 prominent={i === 0}
                 delay={i * 80}
+                compact
               />
             ))}
 
@@ -67,6 +71,7 @@ export default function ProjectsSection() {
                 githubUrl={project.githubUrl ?? ""}
                 featured={project.featured}
                 prominent={index === 0}
+                compact
                 animationDelay={index * 80}
               />
             ))}

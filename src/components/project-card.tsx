@@ -17,6 +17,7 @@ interface ProjectCardProps {
   githubUrl?: string;
   featured?: boolean;
   prominent?: boolean;
+  compact?: boolean;
   animationDelay?: number;
 }
 
@@ -29,6 +30,7 @@ export function ProjectCard({
   githubUrl,
   featured = false,
   prominent = false,
+  compact = false,
   animationDelay = 0,
 }: ProjectCardProps) {
   const [expanded, setExpanded] = useState(false);
@@ -36,7 +38,7 @@ export function ProjectCard({
   const [needsTruncate, setNeedsTruncate] = useState(false);
   const [maxHeight, setMaxHeight] = useState<string | number>("none");
 
-  const LINES = prominent ? 4 : 3;
+  const LINES = compact ? (prominent ? 3 : 2) : prominent ? 4 : 3;
 
   // Measure content height and determine whether to show "Read more".
   useLayoutEffect(() => {
@@ -86,7 +88,13 @@ export function ProjectCard({
       {/* Image */}
       <div
         className={`relative overflow-hidden w-full flex-shrink-0 ${
-          prominent ? "h-72 md:h-80 lg:h-96" : "h-52 md:h-56 lg:h-64"
+          compact
+            ? prominent
+              ? "h-64 md:h-72 lg:h-80"
+              : "h-44 md:h-48 lg:h-56"
+            : prominent
+              ? "h-72 md:h-80 lg:h-96"
+              : "h-52 md:h-56 lg:h-64"
         }`}
       >
         <Image
@@ -137,9 +145,13 @@ export function ProjectCard({
       </div>
 
       {/* Content: make it fill remaining space to keep cards same height */}
-      <CardContent className="p-6 md:p-7 flex-1 flex flex-col">
+      <CardContent
+        className={`flex-1 flex flex-col ${compact ? "p-5 md:p-6" : "p-6 md:p-7"}`}
+      >
         <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="font-heading font-bold text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+          <h3
+            className={`font-heading font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug ${compact ? "text-lg md:text-xl" : "text-xl md:text-2xl"}`}
+          >
             {title}
           </h3>
           {featured && (
@@ -152,7 +164,9 @@ export function ProjectCard({
           )}
         </div>
 
-        <div className="text-muted-foreground mb-5 leading-relaxed text-sm md:text-base">
+        <div
+          className={`text-muted-foreground leading-relaxed ${compact ? "mb-4 text-xs md:text-sm" : "mb-5 text-sm md:text-base"}`}
+        >
           <div
             ref={contentRef}
             className="overflow-hidden"
@@ -169,7 +183,7 @@ export function ProjectCard({
             <button
               type="button"
               onClick={() => setExpanded((s) => !s)}
-              className="text-sm text-primary mt-2 hover:underline focus:underline"
+              className={`text-primary mt-2 hover:underline focus:underline ${compact ? "text-xs" : "text-sm"}`}
               aria-expanded={expanded}
             >
               {expanded ? "Show less" : "Read more"}
@@ -177,12 +191,12 @@ export function ProjectCard({
           )}
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-5">
+        <div className={`flex flex-wrap gap-2 ${compact ? "mb-4" : "mb-5"}`}>
           {technologies.map((tech) => (
             <Badge
               key={tech}
               variant="secondary"
-              className="text-xs bg-muted/70 text-muted-foreground hover:bg-muted transition-colors"
+              className={`bg-muted/70 text-muted-foreground hover:bg-muted transition-colors ${compact ? "text-[11px]" : "text-xs"}`}
             >
               {tech}
             </Badge>
@@ -191,7 +205,11 @@ export function ProjectCard({
 
         <div className="flex gap-2 pt-2 mt-auto w-full items-center">
           {demoUrl && (
-            <Button size="sm" asChild className="flex-1 min-w-0 h-10">
+            <Button
+              size="sm"
+              asChild
+              className={`flex-1 min-w-0 ${compact ? "h-9" : "h-10"}`}
+            >
               <Link
                 href={demoUrl}
                 target="_blank"
@@ -208,7 +226,7 @@ export function ProjectCard({
               size="sm"
               variant="outline"
               asChild
-              className="flex-1 min-w-0 h-10 bg-transparent"
+              className={`flex-1 min-w-0 bg-transparent ${compact ? "h-9" : "h-10"}`}
             >
               <Link
                 href={githubUrl}
