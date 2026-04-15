@@ -1,15 +1,16 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/components/context/language-context";
 import useProjects from "@/hooks/use-projects";
 import ProjectCardSkeleton from "@/components/project-card-skeleton";
 import { ProjectCard } from "@/components/project-card";
+import Link from "next/link";
 
 export default function ProjectsSection() {
   const { language } = useLanguage();
-  const { projects, loading, error } = useProjects({ limit: 9 });
+  const { projects, loading, error } = useProjects({ limit: 6 });
 
   return (
     <section
@@ -74,21 +75,30 @@ export default function ProjectsSection() {
         <div className="text-center">
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             {language === "EN"
-              ? "Want to see more of my work? Check out my GitHub profile for additional projects and contributions."
-              : "Ingin melihat lebih banyak karya saya? Kunjungi profil GitHub saya untuk proyek dan kontribusi tambahan."}
+              ? "Want to explore all projects with filters and sorting? Open the full projects page."
+              : "Ingin lihat semua proyek dengan filter dan sorting? Buka halaman proyek lengkap."}
           </p>
-          <Button size="lg" variant="outline" asChild>
-            <a
-              href="https://github.com/SulthanRaghib"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {language === "EN"
-                ? "View All Projects on GitHub"
-                : "Lihat Semua Proyek di GitHub"}
-              <ExternalLink className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button size="lg" asChild>
+              <Link href="/projects">
+                {language === "EN"
+                  ? "Load More Projects"
+                  : "Muat Lebih Banyak Proyek"}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+
+            <Button size="lg" variant="outline" asChild>
+              <a
+                href="https://github.com/SulthanRaghib"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {language === "EN" ? "GitHub Profile" : "Profil GitHub"}
+                <ExternalLink className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
