@@ -13,7 +13,7 @@ import ProjectCardSkeleton from "@/components/project-card-skeleton";
 import type { Project } from "@/types/project";
 
 type FilterValue = "all" | "featured" | "web" | "ai";
-type SortValue = "latest" | "oldest" | "name";
+type SortValue = "featured" | "latest" | "oldest" | "name";
 
 function inferCategory(project: Project): "web" | "ai" {
   const text = [project.title, ...project.technologies].join(" ").toLowerCase();
@@ -26,7 +26,7 @@ export default function AllProjectsPage() {
   const { language } = useLanguage();
   const { projects, loading, error } = useProjects({ limit: 100 });
   const [filter, setFilter] = useState<FilterValue>("all");
-  const [sort, setSort] = useState<SortValue>("latest");
+  const [sort, setSort] = useState<SortValue>("featured");
 
   const filteredAndSorted = useMemo(() => {
     let items = [...projects];
@@ -38,6 +38,18 @@ export default function AllProjectsPage() {
     }
 
     items.sort((a, b) => {
+      if (sort === "featured") {
+        if ((a.featured ? 1 : 0) !== (b.featured ? 1 : 0)) {
+          return a.featured ? -1 : 1;
+        }
+        const orderA = a.order ?? 0;
+        const orderB = b.order ?? 0;
+        if (orderA !== orderB) return orderA - orderB;
+        const dateA = new Date(a.createdAt ?? 0).getTime();
+        const dateB = new Date(b.createdAt ?? 0).getTime();
+        return dateB - dateA;
+      }
+
       if (sort === "name") return a.title.localeCompare(b.title);
       const timeA = new Date(a.createdAt ?? 0).getTime();
       const timeB = new Date(b.createdAt ?? 0).getTime();
@@ -81,6 +93,9 @@ export default function AllProjectsPage() {
                 onChange={(e) => setSort(e.target.value as SortValue)}
                 className="h-10 rounded-md border border-border bg-background px-3 text-foreground"
               >
+                <option value="featured">
+                  {language === "EN" ? "Featured first" : "Featured dulu"}
+                </option>
                 <option value="latest">
                   {language === "EN" ? "Latest" : "Terbaru"}
                 </option>
