@@ -139,14 +139,64 @@
 
 /* Global shimmer styles for skeleton placeholders */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 .shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
   background-size: 200% 100%;
   animation: shimmer 1200ms linear infinite;
   mix-blend-mode: overlay;
   opacity: 0.9;
 }
 
+@keyframes project-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-reveal {
+  opacity: 0;
+  animation: project-reveal 520ms ease-out forwards;
+}
+
+.projects-section-bg {
+  background-image:
+    radial-gradient(
+      55rem 30rem at 12% 8%,
+      color-mix(in oklab, var(--primary) 12%, transparent),
+      transparent 75%
+    ),
+    radial-gradient(
+      40rem 22rem at 88% 78%,
+      color-mix(in oklab, var(--secondary) 10%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--background) 97%, var(--muted) 3%),
+      var(--background)
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-reveal {
+    opacity: 1;
+    animation: none;
+  }
+}
