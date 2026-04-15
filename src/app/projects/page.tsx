@@ -59,6 +59,16 @@ export default function AllProjectsPage() {
     return items;
   }, [projects, filter, sort]);
 
+  const featuredProjects = useMemo(
+    () => filteredAndSorted.filter((project) => project.featured),
+    [filteredAndSorted],
+  );
+
+  const regularProjects = useMemo(
+    () => filteredAndSorted.filter((project) => !project.featured),
+    [filteredAndSorted],
+  );
+
   return (
     <>
       <Navbar />
@@ -140,33 +150,88 @@ export default function AllProjectsPage() {
             </Button>
           </div>
 
-          <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
-            {loading &&
-              Array.from({ length: 6 }).map((_, i) => (
+          {loading && (
+            <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+              {Array.from({ length: 6 }).map((_, i) => (
                 <ProjectCardSkeleton
                   key={`all-skeleton-${i}`}
-                  prominent={i === 0}
+                  prominent={false}
                   delay={i * 80}
                   compact={false}
                 />
               ))}
+            </div>
+          )}
 
-            {error && (
-              <div className="col-span-full text-center text-destructive">
-                {error}
+          {error && <div className="text-center text-destructive">{error}</div>}
+
+          {!loading && !error && filteredAndSorted.length === 0 && (
+            <div className="text-center text-muted-foreground py-12">
+              {language === "EN"
+                ? "No projects match this filter yet."
+                : "Belum ada proyek yang cocok dengan filter ini."}
+            </div>
+          )}
+
+          {!loading &&
+            !error &&
+            filter === "all" &&
+            featuredProjects.length > 0 && (
+              <div className="mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 md:gap-8">
+                  {featuredProjects.map((project, index) => (
+                    <ProjectCard
+                      key={project.id}
+                      title={project.title}
+                      description={
+                        language === "EN"
+                          ? project.descriptionEn
+                          : project.descriptionId
+                      }
+                      image={project.image}
+                      technologies={project.technologies}
+                      demoUrl={project.demoUrl ?? ""}
+                      githubUrl={project.githubUrl ?? ""}
+                      featured={project.featured}
+                      prominent={false}
+                      animationDelay={index * 60}
+                      compact={false}
+                    />
+                  ))}
+                </div>
               </div>
             )}
 
-            {!loading && !error && filteredAndSorted.length === 0 && (
-              <div className="col-span-full text-center text-muted-foreground py-12">
-                {language === "EN"
-                  ? "No projects match this filter yet."
-                  : "Belum ada proyek yang cocok dengan filter ini."}
+          {!loading &&
+            !error &&
+            filter === "all" &&
+            regularProjects.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+                {regularProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    title={project.title}
+                    description={
+                      language === "EN"
+                        ? project.descriptionEn
+                        : project.descriptionId
+                    }
+                    image={project.image}
+                    technologies={project.technologies}
+                    demoUrl={project.demoUrl ?? ""}
+                    githubUrl={project.githubUrl ?? ""}
+                    featured={project.featured}
+                    prominent={false}
+                    animationDelay={(featuredProjects.length + index) * 60}
+                    compact={false}
+                  />
+                ))}
               </div>
             )}
 
-            {!loading &&
-              filteredAndSorted.map((project, index) => (
+          {!loading && !error && filter === "featured" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 md:gap-8">
+              {filteredAndSorted.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   title={project.title}
@@ -180,12 +245,37 @@ export default function AllProjectsPage() {
                   demoUrl={project.demoUrl ?? ""}
                   githubUrl={project.githubUrl ?? ""}
                   featured={project.featured}
-                  prominent={index === 0 && filter === "all"}
+                  prominent={false}
                   animationDelay={index * 60}
                   compact={false}
                 />
               ))}
-          </div>
+            </div>
+          )}
+
+          {!loading && !error && (filter === "web" || filter === "ai") && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+              {filteredAndSorted.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  title={project.title}
+                  description={
+                    language === "EN"
+                      ? project.descriptionEn
+                      : project.descriptionId
+                  }
+                  image={project.image}
+                  technologies={project.technologies}
+                  demoUrl={project.demoUrl ?? ""}
+                  githubUrl={project.githubUrl ?? ""}
+                  featured={project.featured}
+                  prominent={false}
+                  animationDelay={index * 60}
+                  compact={false}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </main>
       <Footer />
