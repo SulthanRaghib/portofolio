@@ -1,4 +1,5 @@
 import type { ProjectsResponse, Project } from "@/types/project";
+import { fallbackProjects } from "@/data/fallback-projects";
 
 const DEFAULT_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
@@ -27,7 +28,9 @@ function buildUrl(path: string, params?: Record<string, QueryValue>) {
   return url.toString();
 }
 
-export async function getProjects(params?: GetProjectsParams): Promise<ProjectsResponse> {
+export async function getProjects(
+  params?: GetProjectsParams,
+): Promise<ProjectsResponse> {
   const query: Record<string, QueryValue> = {};
   if (params) {
     if (params.page) query.page = params.page;
@@ -40,34 +43,74 @@ export async function getProjects(params?: GetProjectsParams): Promise<ProjectsR
 
   const url = buildUrl("/projects", query);
 
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // cache: "no-store" // uncomment to always fetch fresh data
-  });
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // cache: "no-store" // uncomment to always fetch fresh data
+    });
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Failed to fetch projects: ${res.status} ${res.statusText} - ${text}`);
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(
+        `Failed to fetch projects: ${res.status} ${res.statusText} - ${text}`,
+      );
+    }
+
+    const json = (await res.json()) as ProjectsResponse;
+    // Basic validation
+    if (!json || !Array.isArray(json.data)) {
+      return { success: false, data: [] } as ProjectsResponse;
+    }
+
+    return json;
+  } catch (error) {
+    console.warn(
+      "[api:getProjects] External API failed. Using local fallback data.",
+      error,
+    );
+
+    let filteredFallback = [...fallbackProjects];
+
+    if (params?.featured !== undefined) {
+      filteredFallback = filteredFallback.filter(
+        (project) => project.featured === params.featured,
+      );
+    }
+
+    if (params?.limit !== undefined) {
+      filteredFallback = filteredFallback.slice(0, params.limit);
+    }
+
+    return { success: true, data: filteredFallback };
   }
-
-  const json = (await res.json()) as ProjectsResponse;
-  // Basic validation
-  if (!json || !Array.isArray(json.data)) {
-    return { success: false, data: [] } as ProjectsResponse;
-  }
-
-  return json;
 }
 
-export async function getProjectById(id: string): Promise<{ success: boolean; data?: Project } > {
+export async function getProjectById(
+  id: string,
+): Promise<{ success: boolean; data?: Project }> {
   const url = buildUrl(`/projects/${encodeURIComponent(id)}`);
-  const res = await fetch(url, { method: "GET" });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Failed to fetch project ${id}: ${res.status} ${res.statusText} - ${text}`);
+
+  try {
+    const res = await fetch(url, { method: "GET" });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(
+        `Failed to fetch project ${id}: ${res.status} ${res.statusText} - ${text}`,
+      );
+    }
+    return (await res.json()) as { success: boolean; data?: Project };
+  } catch (error) {
+    console.warn(
+      `[api:getProjectById] External API failed for id ${id}. Using local fallback data.`,
+      error,
+    );
+
+    const fallbackProject = fallbackProjects.find(
+      (project) => project.id === id,
+    );
+    return { success: true, data: fallbackProject };
   }
-  return (await res.json()) as { success: boolean; data?: Project };
 }

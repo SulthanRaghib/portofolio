@@ -4,6 +4,7 @@ import type { Project } from "@/types/project";
 
 type UseProjectsOptions = {
   limit?: number;
+  featured?: boolean;
 };
 
 function getErrorMessage(err: unknown) {
@@ -16,7 +17,10 @@ function getErrorMessage(err: unknown) {
   }
 }
 
-export default function useProjects({ limit = 9 }: UseProjectsOptions = {}) {
+export default function useProjects({
+  limit = 9,
+  featured,
+}: UseProjectsOptions = {}) {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +29,7 @@ export default function useProjects({ limit = 9 }: UseProjectsOptions = {}) {
     setLoading(true);
     setError(null);
     try {
-      const res = await getProjects({ limit });
+      const res = await getProjects({ limit, featured });
       const list = res?.data ?? [];
 
       // Ensure deterministic ordering: featured first, then by `order`, then by createdAt desc
@@ -47,7 +51,7 @@ export default function useProjects({ limit = 9 }: UseProjectsOptions = {}) {
     } finally {
       setLoading(false);
     }
-  }, [limit]);
+  }, [limit, featured]);
 
   useEffect(() => {
     let mounted = true;
