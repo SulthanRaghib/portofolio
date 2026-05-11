@@ -2,7 +2,30 @@ import type { Project } from "@/types/project";
 
 export const fallbackProjects: Project[] = [
   {
-    id: "offline-portfolio-redesign",
+    id: "cat-bapeten-system",
+    title: "Computer Assisted Test (CAT) BAPETEN",
+    descriptionEn:
+      "A comprehensive Computer Assisted Test (CAT) system developed for the Nuclear Energy Regulatory Agency (BAPETEN). Built robustly with the TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) and Filament PHP, the platform streamlines the evaluation process. Key features include dynamic question bank management, exam session monitoring, real-time countdowns, secure participant access, and automated scoring configurations with comprehensive exportable reports.",
+    descriptionId:
+      "Sistem Computer Assisted Test (CAT) komprehensif yang dikembangkan untuk Badan Pengawas Tenaga Nuklir (BAPETEN). Dibangun menggunakan TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) dan Filament PHP untuk merampingkan proses evaluasi. Fitur utama mencakup manajemen bank soal dinamis, pemantauan sesi ujian, perhitungan waktu mundur real-time, akses peserta yang aman, serta konfigurasi penilaian otomatis dengan laporan komprehensif yang dapat diekspor.",
+    image:
+      "https://res.cloudinary.com/dgazwu3i3/image/upload/v1778473171/Screenshot_2026-05-11_111856_r3zcbo.png",
+    technologies: [
+      "Laravel",
+      "Livewire",
+      "Filament",
+      "Tailwind CSS",
+      "Alpine.js",
+    ],
+    demoUrl: "", // Kosongkan jika hanya untuk penggunaan internal
+    githubUrl: "https://github.com/sulthanraghib/cat-bapeten",
+    featured: true,
+    order: 1,
+    createdAt: "2026-04-10T10:00:00.000Z", // Disesuaikan dengan rentang waktu proyek
+    updatedAt: "2026-04-12T12:30:00.000Z",
+  },
+  {
+    id: "sehati-bimbingan-konseling",
     title: "Sistem Informasi Bimbingan Konseling untuk Kesehatan Mental",
     descriptionEn:
       "This system was developed as a digital solution to facilitate counseling services at SMK Amaliyah, with a focus on improving students' mental health. The system was developed using Laravel 11 and MariaDB and supports multi-role users (students, guidance counselors, and principals).",
@@ -14,12 +37,12 @@ export const fallbackProjects: Project[] = [
     demoUrl: "",
     githubUrl: "https://github.com/SulthanRaghib/sehati",
     featured: true,
-    order: 1,
+    order: 2,
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-12T12:30:00.000Z",
   },
   {
-    id: "offline-portfolio-redesign",
+    id: "company-profile-jasproland",
     title: "Company Profile Jasproland",
     descriptionEn:
       "Developed a company profile website using Laravel 12 with MVC architecture, featuring clean and scalable code. The project included on-page SEO optimization (dynamic meta tags, semantic headings, XML sitemap, and speed improvements) to enhance search rankings, and an SMTP-integrated contact form for secure, automated admin email delivery.",
@@ -31,12 +54,12 @@ export const fallbackProjects: Project[] = [
     demoUrl: "https://jasproland.com/",
     githubUrl: "https://github.com/SulthanRaghib/pro-land",
     featured: true,
-    order: 2,
+    order: 3,
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-12T12:30:00.000Z",
   },
   {
-    id: "offline-dashboard-analytics",
+    id: "brawijaya-healthy-chatbot",
     title: "Brawijaya Healthy Chatbot",
     descriptionEn:
       "Developed an AI-powered health chatbot on the Smojo AI platform, integrating NLP to interpret user symptom inputs and provide initial recommendations. Enhanced user engagement by creating an interactive quiz-style chatbot game covering health and general knowledge, while designing a responsive and intuitive UI/UX for seamless access.",
@@ -53,7 +76,7 @@ export const fallbackProjects: Project[] = [
     updatedAt: "2026-02-03T16:45:00.000Z",
   },
   {
-    id: "offline-dashboard-analytics",
+    id: "nexcent-landing-page",
     title: "Nexcent",
     descriptionEn:
       "This project was developed using React.js following a structured folder format, without relying on CSS frameworks like Bootstrap or Tailwind. It focuses on implementing core layout and styling from scratch, though it has not yet been optimized for responsiveness, hover effects, or animations.",
@@ -70,7 +93,7 @@ export const fallbackProjects: Project[] = [
     updatedAt: "2026-02-03T16:45:00.000Z",
   },
   {
-    id: "offline-dashboard-analytics",
+    id: "spatiall-peta-tematik",
     title: "Spatiall Peta Tematik",
     descriptionEn:
       "An interactive web application built with the Leaflet JavaScript library to visualize spatial data of DKI Jakarta. The project displays administrative boundaries, highlights population distribution for density analysis, and maps the spread of HIV/AIDS cases across different areas to support public health insights.",
@@ -87,7 +110,7 @@ export const fallbackProjects: Project[] = [
     updatedAt: "2026-02-03T16:45:00.000Z",
   },
   {
-    id: "offline-dashboard-analytics",
+    id: "rafii-yuuki-chatbot",
     title: "Rafii Yuuki Chatbot",
     descriptionEn:
       "Developed an interactive chatbot leveraging Natural Language Processing (NLP) and Large Language Models (LLM), implementing prompt engineering, data processing, and collection pipelines to improve accuracy. Built with Web Smojo AI, the chatbot features database integration, user management, and user metrics analysis to enhance performance and engagement.",
@@ -104,7 +127,7 @@ export const fallbackProjects: Project[] = [
     updatedAt: "2026-02-03T16:45:00.000Z",
   },
   {
-    id: "offline-dashboard-analytics",
+    id: "website-of-architects",
     title: "Website of Architects",
     descriptionEn:
       "A simple static website built as part of my frontend learning journey, created using only basic HTML tags such as div, p, img, and button. This project focuses on practicing structure and layout fundamentals without responsiveness.",
