@@ -78,11 +78,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${openSans.variable}`}>
-      <head>
-        {/* Structured Data (JSON-LD) */}
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${openSans.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-body antialiased" suppressHydrationWarning>
+        {/* Structured Data (JSON-LD) — placed in body to avoid browser extension hydration interference */}
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -97,8 +102,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body className="font-body antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
