@@ -25,6 +25,29 @@ export const fallbackProjects: Project[] = [
     updatedAt: "2026-04-12T12:30:00.000Z",
   },
   {
+    id: "absensi-system-bapeten",
+    title: "Smart Attendance System BAPETEN",
+    descriptionEn:
+      "An automated and smart attendance management system developed for Pranata Komputer duties at BAPETEN. Built robustly with Laravel 12 and Filament 4, it functions as a fully offline-capable Progressive Web App (PWA). The platform integrates AI-powered facial recognition and geocoding API for secure, location-valid check-ins. Additional capabilities include dynamic national holiday synchronization, device risk detection, and comprehensive real-time dashboards for both administrators and staff.",
+    descriptionId:
+      "Sistem pengurusan kehadiran pintar dan automatik yang dibangunkan untuk tugasan Pranata Komputer di BAPETEN. Dibina menggunakan Laravel 12 dan Filament 4, sistem ini menyokong fungsi Progressive Web App (PWA). Platform ini mengintegrasikan pengecaman wajah (Face Recognition) berkuasa AI dan API geocoding untuk rekod kehadiran berasaskan lokasi yang tepat dan selamat. Ciri tambahan termasuk penyegerakan cuti umum secara dinamik, pengesanan risiko peranti, serta papan pemuka (dashboard) masa nyata yang komprehensif untuk pentadbir dan kakitangan.",
+    image:
+      "https://res.cloudinary.com/dgazwu3i3/image/upload/v1778473171/Screenshot_2026-05-11_111856_r3zcbo.png",
+    technologies: [
+      "Laravel 12",
+      "Filament 4",
+      "PWA",
+      "Face Recognition API",
+      "Geocoding API",
+    ],
+    demoUrl: "", // Biarkan kosong jika hanya untuk penggunaan dalaman
+    githubUrl: "https://github.com/SulthanRaghib/absensi-system",
+    featured: true,
+    order: 2, // Boleh dilaraskan mengikut turutan portfolio anda
+    createdAt: "2026-02-15T08:00:00.000Z",
+    updatedAt: "2026-04-27T10:00:00.000Z",
+  },
+  {
     id: "sehati-bimbingan-konseling",
     title: "Sistem Informasi Bimbingan Konseling untuk Kesehatan Mental",
     descriptionEn:
@@ -37,7 +60,7 @@ export const fallbackProjects: Project[] = [
     demoUrl: "",
     githubUrl: "https://github.com/SulthanRaghib/sehati",
     featured: true,
-    order: 2,
+    order: 3,
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-12T12:30:00.000Z",
   },
@@ -54,7 +77,7 @@ export const fallbackProjects: Project[] = [
     demoUrl: "https://jasproland.com/",
     githubUrl: "https://github.com/SulthanRaghib/pro-land",
     featured: true,
-    order: 3,
+    order: 4,
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-12T12:30:00.000Z",
   },
