@@ -2,8 +2,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Download, ArrowDown } from "lucide-react";
-import Image from "next/image";
 import { useLanguage } from "@/components/context/language-context";
+import Particles from "@/components/ui/react-bits/particles";
 
 export default function HeroSection() {
   const { language } = useLanguage();
@@ -13,9 +13,26 @@ export default function HeroSection() {
       id="home"
       className="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted" />
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+
+      {/* Particle Background */}
+      <div className="absolute inset-0 z-0 opacity-45 dark:opacity-65 pointer-events-none">
+        <Particles
+          particleColors={["#6366f1", "#4f46e5", "#3b82f6", "#a78bfa"]}
+          particleCount={800}
+          particleSpread={10}
+          speed={0.12}
+          particleBaseSize={100}
+          moveParticlesOnHover={true}
+          alphaParticles={true}
+          disableRotation={false}
+        />
+      </div>
+
+      {/* Bottom fade transition overlay to blend home and about sections */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-muted to-transparent pointer-events-none z-0" />
 
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="font-heading font-black text-5xl md:text-7xl lg:text-8xl text-foreground mb-6 leading-tight">
@@ -33,14 +50,26 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <Button size="lg" className="text-lg px-8 py-6 font-semibold group" asChild>
-            <a href="#projects" className="text-lg px-8 py-6 font-semibold group inline-flex items-center">
+          <Button
+            size="lg"
+            className="text-lg px-8 py-6 font-semibold group"
+            asChild
+          >
+            <a
+              href="#projects"
+              className="text-lg px-8 py-6 font-semibold group inline-flex items-center"
+            >
               {language === "EN" ? "View My Work" : "Lihat Karyaku"}
               <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </Button>
 
-          <Button variant="outline" size="lg" className="text-lg px-8 py-6 font-semibold group" asChild>
+          <Button
+            variant="outline"
+            size="lg"
+            className="text-lg px-8 py-6 font-semibold group"
+            asChild
+          >
             <a
               href="/assets/Resume_Sulthan-Raghib-Fillah.pdf"
               download
@@ -54,7 +83,9 @@ export default function HeroSection() {
 
         <div className="flex flex-col items-center">
           <p className="text-sm text-muted-foreground mb-2">
-            {language === "EN" ? "Scroll to explore" : "Gulir untuk menjelajahi"}
+            {language === "EN"
+              ? "Scroll to explore"
+              : "Gulir untuk menjelajahi"}
           </p>
           <ArrowDown className="h-6 w-6 text-muted-foreground animate-bounce" />
         </div>
