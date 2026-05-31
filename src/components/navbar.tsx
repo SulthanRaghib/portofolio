@@ -18,6 +18,7 @@ export function Navbar() {
     { name: language === "EN" ? "Home" : "Beranda", href: "/#home" },
     { name: language === "EN" ? "About" : "Tentang", href: "/#about" },
     { name: language === "EN" ? "Projects" : "Proyek", href: "/#projects" },
+    { name: language === "EN" ? "Certifications" : "Sertifikasi", href: "/#certifications" },
     { name: language === "EN" ? "Contact" : "Kontak", href: "/#contact" },
   ];
 
