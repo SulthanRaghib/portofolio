@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Code, Database, Globe, Smartphone } from "lucide-react";
 import { CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +9,42 @@ import BlurText from "@/components/ui/react-bits/blur-text";
 import CountUp from "@/components/ui/react-bits/count-up";
 import SpotlightCard from "@/components/ui/react-bits/spotlight-card";
 
+const LanyardComponent = dynamic(
+  () => import("@/components/ui/react-bits/lanyard"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-muted/10 rounded-2xl border border-border/40 min-h-[300px]">
+        <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    ),
+  }
+);
+
 export default function AboutSection() {
   const { language } = useLanguage();
+  const [lanyardVisible, setLanyardVisible] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLanyardVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <section id="about" className="py-20 bg-muted">
@@ -31,15 +65,16 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           <SpotlightCard className="p-8">
-            <div className="flex flex-col items-center lg:items-start">
-              <div className="w-64 h-64 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full mb-6 flex items-center justify-center border-4 border-primary/10">
-                <Image
-                  src="/assets/my-self.jpg"
-                  alt="Sulthan Raghib Fillah - Web Developer"
-                  className="w-56 h-56 rounded-full object-cover"
-                  width={224}
-                  height={224}
-                />
+            <div className="flex flex-col items-center lg:items-start w-full">
+              {/* Interactive 3D Lanyard Profile Card */}
+              <div ref={containerRef} className="w-full h-80 sm:h-[400px] mb-6 relative overflow-hidden rounded-2xl border border-border/40 bg-black/5 dark:bg-black/25">
+                {lanyardVisible && (
+                  <LanyardComponent
+                    position={[0, 0, 15]}
+                    gravity={[0, -40, 0]}
+                    fov={25}
+                  />
+                )}
               </div>
               <div className="text-center lg:text-left">
                 <h3 className="font-heading font-bold text-2xl text-foreground mb-4">
