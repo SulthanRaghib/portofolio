@@ -71,7 +71,7 @@ export function ProjectCard({
       const newFull = paragraph.scrollHeight;
       const newClamped = Math.round(lineHeight * LINES);
       setNeedsTruncate(newFull > newClamped + 1);
-      setMaxHeight((prev) => (expanded ? newFull : newClamped));
+      setMaxHeight(expanded ? newFull : newClamped);
     };
 
     window.addEventListener("resize", handler);

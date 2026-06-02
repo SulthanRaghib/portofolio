@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Mail, Twitter, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, Heart } from "lucide-react";
 import { useLanguage } from "./context/language-context";
 
 export function Footer() {
