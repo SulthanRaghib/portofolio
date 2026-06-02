@@ -4,10 +4,9 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, ExternalLink, Calendar } from "lucide-react";
+import { Eye, ExternalLink, Calendar, Award } from "lucide-react";
 import { useLanguage } from "@/components/context/language-context";
 import { CertificationPreviewModal } from "./certification-preview-modal";
-import { PdfPageViewer } from "./pdf-page-viewer";
 import type { Certification } from "@/types/certification";
 
 interface CertificationCardProps {
@@ -30,9 +29,6 @@ export function CertificationCard({
     });
   };
 
-  // Use the original raw PDF URL for pdf.js rendering
-  const pdfUrl = certification.image;
-
   return (
     <>
       <Card
@@ -40,13 +36,60 @@ export function CertificationCard({
         style={{ animationDelay: `${animationDelay}ms` }}
         onClick={() => setModalOpen(true)}
       >
-        {/* Certificate PDF Thumbnail (rendered via pdf.js) */}
-        <div className="relative overflow-hidden w-full h-44 sm:h-48 md:h-52 bg-muted/10 flex-shrink-0 border-b border-border/40">
-          <PdfPageViewer
-            url={pdfUrl}
-            showNavigation={false}
-            initialPage={1}
-          />
+        {/* Certificate Template Preview */}
+        <div className="relative overflow-hidden w-full h-44 sm:h-48 md:h-52 bg-linear-to-br from-card to-muted/80 flex-shrink-0 border-b border-border/40 p-4 flex flex-col justify-between text-foreground">
+          {/* Ambient Glows */}
+          <div className="absolute -top-12 -right-12 w-28 h-28 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-12 -left-12 w-28 h-28 bg-secondary/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute inset-2 border border-primary/20 pointer-events-none rounded-lg" />
+
+          {/* Certificate Header */}
+          <div className="text-center mt-1 z-10">
+            <div className="flex justify-center mb-0.5">
+              <Award className="h-5 w-5 text-primary" />
+            </div>
+            <h4 className="font-heading font-black text-[9px] sm:text-[10px] tracking-widest text-primary uppercase">
+              {language === "EN" ? "Certificate of Achievement" : "Sertifikat Pencapaian"}
+            </h4>
+            <div className="h-[1px] w-12 bg-linear-to-r from-transparent via-primary to-transparent mx-auto mt-0.5" />
+          </div>
+
+          {/* Recipient and Class */}
+          <div className="text-center my-1 px-1 z-10">
+            <p className="text-[7px] sm:text-[8px] text-muted-foreground italic mb-0.5">
+              {language === "EN" ? "This is to certify that" : "Dengan ini menyatakan bahwa"}
+            </p>
+            <h5 className="font-heading font-bold text-xs sm:text-sm text-foreground mb-1 leading-tight">
+              Sulthan Raghib Fillah
+            </h5>
+            <p className="text-[7px] sm:text-[8px] text-muted-foreground mb-0.5">
+              {language === "EN" ? "has successfully completed" : "telah berhasil menyelesaikan kelas"}
+            </p>
+            <h6 className="font-heading font-extrabold text-[9px] sm:text-[10px] text-foreground max-w-[90%] mx-auto leading-snug line-clamp-1">
+              {certification.title}
+            </h6>
+          </div>
+
+          {/* Footer Metadata */}
+          <div className="flex justify-between items-end border-t border-border/40 pt-1.5 text-[7px] sm:text-[8px] z-10">
+            <div className="flex flex-col">
+              <span className="text-muted-foreground font-semibold uppercase">
+                {language === "EN" ? "ISSUED BY" : "PENERBIT"}
+              </span>
+              <span className="font-bold text-foreground truncate max-w-[80px]">{certification.issuer}</span>
+            </div>
+            <div className="flex flex-col text-right">
+              <span className="text-muted-foreground font-semibold uppercase">
+                {language === "EN" ? "DATE OF ISSUE" : "TANGGAL TERBIT"}
+              </span>
+              <span className="font-bold text-foreground">{formatDate(certification.issuedAt)}</span>
+            </div>
+          </div>
+
+          {/* Watermark badge icon in background */}
+          <div className="absolute bottom-6 right-6 opacity-[0.03] pointer-events-none select-none">
+            <Award className="h-16 w-16" />
+          </div>
 
           {/* Hover overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 z-10">
