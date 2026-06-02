@@ -7,6 +7,7 @@ import useProjects from "@/hooks/use-projects";
 import ProjectCardSkeleton from "@/components/project-card-skeleton";
 import { ProjectCard } from "@/components/project-card";
 import Link from "next/link";
+import BlurText from "@/components/ui/react-bits/blur-text";
 
 export default function ProjectsSection() {
   const { language } = useLanguage();
@@ -22,14 +23,22 @@ export default function ProjectsSection() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         <div className="text-center mb-12 md:mb-14">
-          <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-5 tracking-tight">
-            {language === "EN" ? "Featured Projects" : "Proyek Unggulan"}
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            {language === "EN"
-              ? "A curated selection of featured work. Open the full projects page to explore the complete collection with filters and sorting."
-              : "Pilihan proyek unggulan yang sudah dikurasi. Buka halaman proyek lengkap untuk melihat semua proyek dengan filter dan sorting."}
-          </p>
+          <BlurText
+            text={language === "EN" ? "Featured Projects" : "Proyek Unggulan"}
+            className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4 justify-center"
+            animateBy="words"
+            delay={80}
+          />
+          <BlurText
+            text={
+              language === "EN"
+                ? "A curated selection of featured work. Open the full projects page to explore the complete collection with filters and sorting."
+                : "Pilihan proyek unggulan yang sudah dikurasi. Buka halaman proyek lengkap untuk melihat semua proyek dengan filter dan sorting."
+            }
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed justify-center"
+            animateBy="words"
+            delay={40}
+          />
         </div>
 
         <div className="project-showcase-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-7 md:gap-8 mb-14">

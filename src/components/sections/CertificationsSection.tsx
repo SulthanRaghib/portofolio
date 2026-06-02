@@ -7,6 +7,8 @@ import { useLanguage } from "@/components/context/language-context";
 import useCertifications from "@/hooks/use-certifications";
 import { CertificationCard } from "@/components/certification-card";
 import Link from "next/link";
+import BlurText from "@/components/ui/react-bits/blur-text";
+import ShinyText from "@/components/ui/react-bits/shiny-text";
 
 export default function CertificationsSection() {
   const { language } = useLanguage();
@@ -27,17 +29,30 @@ export default function CertificationsSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-14">
-          <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-xl mb-4 border border-primary/20">
-            <Award className="h-6 w-6 text-primary" />
+          <div className="inline-flex items-center justify-center gap-2 p-2 px-4 bg-primary/10 rounded-xl mb-4 border border-primary/20">
+            <Award className="h-5 w-5 text-primary" />
+            <ShinyText
+              text={language === "EN" ? "Latest Certifications" : "Sertifikasi Terbaru"}
+              speed={4}
+              className="text-sm font-medium text-primary"
+            />
           </div>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-5 tracking-tight">
-            {language === "EN" ? "Certifications" : "Sertifikasi"}
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            {language === "EN"
-              ? "Validated skills and professional credentials from leading tech organizations, demonstrating constant learning and expertise."
-              : "Kredensial profesional dan keahlian tervalidasi dari lembaga teknologi terkemuka, menunjukkan pembelajaran berkelanjutan."}
-          </p>
+          <BlurText
+            text={language === "EN" ? "Certifications" : "Sertifikasi"}
+            className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4 justify-center"
+            animateBy="words"
+            delay={80}
+          />
+          <BlurText
+            text={
+              language === "EN"
+                ? "Validated skills and professional credentials from leading tech organizations, demonstrating constant learning and expertise."
+                : "Kredensial profesional dan keahlian tervalidasi dari lembaga teknologi terkemuka, menunjukkan pembelajaran berkelanjutan."
+            }
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed justify-center"
+            animateBy="words"
+            delay={40}
+          />
         </div>
 
         {/* Certifications Grid */}

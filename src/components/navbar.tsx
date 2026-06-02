@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "./context/language-context";
+import DecryptedText from "@/components/ui/react-bits/decrypted-text";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,14 @@ export function Navbar() {
             href="/#home"
             className="font-heading font-black text-xl text-primary"
           >
-            {language === "EN" ? "Sulthan Raghib" : "Sulthan Raghib"}
+            <DecryptedText
+              text="Sulthan Raghib"
+              animateOn="hover"
+              speed={50}
+              maxIterations={8}
+              className="text-primary font-heading font-bold"
+              parentClassName="text-lg font-heading font-bold text-foreground hover:text-primary transition-colors"
+            />
           </Link>
 
           {/* Desktop Navigation */}
