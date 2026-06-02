@@ -30,9 +30,10 @@ export default function Lanyard({
   fov = 20,
   transparent = true
 }: LanyardProps) {
-  const [isMobile, setIsMobile] = useState<boolean>(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
     const handleResize = (): void => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -141,34 +142,67 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   }, [hovered, dragged]);
 
   useFrame((state, delta) => {
-    if (dragged && typeof dragged !== 'boolean') {
-      vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
-      dir.copy(vec).sub(state.camera.position).normalize();
-      vec.add(dir.multiplyScalar(state.camera.position.length()));
-      [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
-      card.current?.setNextKinematicTranslation({
-        x: vec.x - dragged.x,
-        y: vec.y - dragged.y,
-        z: vec.z - dragged.z
-      });
+    // Check if all required refs are initialized and have physics components
+    if (!fixed.current || !j1.current || !j2.current || !j3.current || !card.current || !band.current || !band.current.geometry) {
+      return;
     }
-    if (fixed.current) {
-      [j1, j2].forEach(ref => {
-        if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
-        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
+
+    try {
+      const fixedTrans = fixed.current.translation();
+      const j1Trans = j1.current.translation();
+      const j2Trans = j2.current.translation();
+      const j3Trans = j3.current.translation();
+      const cardTrans = card.current.translation();
+      const cardAng = card.current.angvel();
+      const cardRot = card.current.rotation();
+
+      // Ensure all physics properties are fetched successfully before computations
+      if (!fixedTrans || !j1Trans || !j2Trans || !j3Trans || !cardTrans || !cardAng || !cardRot) {
+        return;
+      }
+
+      if (dragged && typeof dragged !== 'boolean') {
+        vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
+        dir.copy(vec).sub(state.camera.position).normalize();
+        vec.add(dir.multiplyScalar(state.camera.position.length()));
+        [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
+        card.current?.setNextKinematicTranslation({
+          x: vec.x - dragged.x,
+          y: vec.y - dragged.y,
+          z: vec.z - dragged.z
+        });
+      }
+
+      const jRefs = [j1, j2];
+      const jTransList = [j1Trans, j2Trans];
+
+      for (let i = 0; i < jRefs.length; i++) {
+        const ref = jRefs[i];
+        const t = jTransList[i];
+        if (!ref.current.lerped) {
+          ref.current.lerped = new THREE.Vector3(t.x, t.y, t.z);
+        }
+        const currentTransVec = vec.set(t.x, t.y, t.z);
+        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(currentTransVec)));
         ref.current.lerped.lerp(
-          ref.current.translation(),
+          currentTransVec,
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
-      });
-      curve.points[0].copy(j3.current.translation());
+      }
+
+      curve.points[0].set(j3Trans.x, j3Trans.y, j3Trans.z);
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
-      curve.points[3].copy(fixed.current.translation());
+      curve.points[3].set(fixedTrans.x, fixedTrans.y, fixedTrans.z);
+
       band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
-      ang.copy(card.current.angvel());
-      rot.copy(card.current.rotation());
+      
+      ang.set(cardAng.x, cardAng.y, cardAng.z);
+      rot.set(cardRot.x, cardRot.y, cardRot.z);
+      
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+    } catch (error) {
+      console.warn("Failed to process physics frame safely:", error);
     }
   });
 
