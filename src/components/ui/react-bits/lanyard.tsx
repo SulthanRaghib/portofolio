@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { useEffect, useRef, useState, Suspense } from 'react';
+import { useEffect, useRef, useState, Suspense, useCallback } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
@@ -44,45 +44,64 @@ export default function Lanyard({
       <Canvas
         camera={{ position, fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
-        onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+        gl={{
+          alpha: transparent,
+          powerPreference: 'high-performance',
+          antialias: !isMobile,
+          stencil: false,
+          depth: true,
+        }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
+          // Handle WebGL context loss and recovery
+          const canvas = gl.domElement;
+          const handleContextLost = (event: Event) => {
+            event.preventDefault();
+            console.warn('Lanyard: WebGL context lost, will attempt recovery');
+          };
+          const handleContextRestored = () => {
+            console.log('Lanyard: WebGL context restored');
+          };
+          canvas.addEventListener('webglcontextlost', handleContextLost);
+          canvas.addEventListener('webglcontextrestored', handleContextRestored);
+        }}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Suspense fallback={null}>
+        <Suspense fallback={null}>
+          <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
             <Band isMobile={isMobile} />
-          </Suspense>
-        </Physics>
-        <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
+          </Physics>
+          <Environment blur={0.75}>
+            <Lightformer
+              intensity={2}
+              color="white"
+              position={[0, -1, 5]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[-1, -1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={3}
+              color="white"
+              position={[1, 1, 1]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            <Lightformer
+              intensity={10}
+              color="white"
+              position={[-10, 0, 14]}
+              rotation={[0, Math.PI / 2, Math.PI / 3]}
+              scale={[100, 10, 1]}
+            />
+          </Environment>
+        </Suspense>
       </Canvas>
     </div>
   );
@@ -102,10 +121,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   const j3 = useRef<any>(null);
   const card = useRef<any>(null);
 
-  const vec = new THREE.Vector3();
-  const ang = new THREE.Vector3();
-  const rot = new THREE.Vector3();
-  const dir = new THREE.Vector3();
+  // Use refs for scratch vectors to avoid re-creating on every render
+  const vec = useRef(new THREE.Vector3()).current;
+  const ang = useRef(new THREE.Vector3()).current;
+  const rot = useRef(new THREE.Vector3()).current;
+  const dir = useRef(new THREE.Vector3()).current;
 
   const segmentProps: any = {
     type: 'dynamic' as RigidBodyProps['type'],
@@ -142,25 +162,18 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   }, [hovered, dragged]);
 
   useFrame((state, delta) => {
-    // Check if all required refs are initialized and have physics components
-    if (!fixed.current || !j1.current || !j2.current || !j3.current || !card.current || !band.current || !band.current.geometry) {
+    if (
+      !fixed.current ||
+      !j1.current ||
+      !j2.current ||
+      !j3.current ||
+      !card.current ||
+      !band.current
+    ) {
       return;
     }
 
     try {
-      const fixedTrans = fixed.current.translation();
-      const j1Trans = j1.current.translation();
-      const j2Trans = j2.current.translation();
-      const j3Trans = j3.current.translation();
-      const cardTrans = card.current.translation();
-      const cardAng = card.current.angvel();
-      const cardRot = card.current.rotation();
-
-      // Ensure all physics properties are fetched successfully before computations
-      if (!fixedTrans || !j1Trans || !j2Trans || !j3Trans || !cardTrans || !cardAng || !cardRot) {
-        return;
-      }
-
       if (dragged && typeof dragged !== 'boolean') {
         vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
         dir.copy(vec).sub(state.camera.position).normalize();
@@ -173,41 +186,61 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
         });
       }
 
-      const jRefs = [j1, j2];
-      const jTransList = [j1Trans, j2Trans];
+      if (fixed.current) {
+        [j1, j2].forEach(ref => {
+          if (!ref.current) return;
+          const t = ref.current.translation();
+          if (!t) return;
+          if (!ref.current.lerped) {
+            ref.current.lerped = new THREE.Vector3(t.x, t.y, t.z);
+          }
+          const lerpTarget = new THREE.Vector3(t.x, t.y, t.z);
+          const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(lerpTarget)));
+          ref.current.lerped.lerp(
+            lerpTarget,
+            delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+          );
+        });
 
-      for (let i = 0; i < jRefs.length; i++) {
-        const ref = jRefs[i];
-        const t = jTransList[i];
-        if (!ref.current.lerped) {
-          ref.current.lerped = new THREE.Vector3(t.x, t.y, t.z);
+        const j3t = j3.current.translation();
+        const ft = fixed.current.translation();
+        if (j3t && ft && j1.current?.lerped && j2.current?.lerped) {
+          curve.points[0].set(j3t.x, j3t.y, j3t.z);
+          curve.points[1].copy(j2.current.lerped);
+          curve.points[2].copy(j1.current.lerped);
+          curve.points[3].set(ft.x, ft.y, ft.z);
+          band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
         }
-        const currentTransVec = vec.set(t.x, t.y, t.z);
-        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(currentTransVec)));
-        ref.current.lerped.lerp(
-          currentTransVec,
-          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
-        );
+
+        const cardAngvel = card.current.angvel();
+        const cardRotation = card.current.rotation();
+        if (cardAngvel && cardRotation) {
+          ang.set(cardAngvel.x, cardAngvel.y, cardAngvel.z);
+          rot.set(cardRotation.x, cardRotation.y, cardRotation.z);
+          card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+        }
       }
-
-      curve.points[0].set(j3Trans.x, j3Trans.y, j3Trans.z);
-      curve.points[1].copy(j2.current.lerped);
-      curve.points[2].copy(j1.current.lerped);
-      curve.points[3].set(fixedTrans.x, fixedTrans.y, fixedTrans.z);
-
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
-      
-      ang.set(cardAng.x, cardAng.y, cardAng.z);
-      rot.set(cardRot.x, cardRot.y, cardRot.z);
-      
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
-    } catch (error) {
-      console.warn("Failed to process physics frame safely:", error);
+    } catch {
+      // Silently handle frame errors during physics initialization
     }
   });
 
   curve.curveType = 'chordal';
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+  const handlePointerDown = useCallback((e: any) => {
+    e.target.setPointerCapture(e.pointerId);
+    if (card.current) {
+      const t = card.current.translation();
+      if (t) {
+        drag(
+          new THREE.Vector3()
+            .copy(e.point)
+            .sub(new THREE.Vector3(t.x, t.y, t.z))
+        );
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -238,10 +271,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
               e.target.releasePointerCapture(e.pointerId);
               drag(false);
             }}
-            onPointerDown={(e: any) => {
-              e.target.setPointerCapture(e.pointerId);
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
-            }}
+            onPointerDown={handlePointerDown}
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial

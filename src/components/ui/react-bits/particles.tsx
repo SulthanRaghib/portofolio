@@ -231,6 +231,16 @@ const Particles: React.FC<ParticlesProps> = ({
         window.removeEventListener('mousemove', handleMouseMove);
       }
       cancelAnimationFrame(animationFrameId);
+      // Properly dispose OGL WebGL context to free GPU resources
+      // This prevents context conflicts with other WebGL canvases (like R3F Lanyard)
+      try {
+        geometry.remove();
+        program.remove();
+        const loseCtx = gl.getExtension('WEBGL_lose_context');
+        if (loseCtx) loseCtx.loseContext();
+      } catch {
+        // Ignore disposal errors
+      }
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }

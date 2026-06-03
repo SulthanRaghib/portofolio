@@ -10,9 +10,29 @@ import BlurText from "@/components/ui/react-bits/blur-text";
 
 export default function HeroSection() {
   const { language } = useLanguage();
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const [particlesVisible, setParticlesVisible] = React.useState(true);
+
+  // Destroy Particles WebGL context when Hero scrolls out of view
+  // to free GPU resources for the Lanyard 3D canvas in About section
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setParticlesVisible(entry.isIntersecting);
+      },
+      { threshold: 0.0, rootMargin: "100px" }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden"
     >
@@ -21,18 +41,20 @@ export default function HeroSection() {
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
 
-      {/* Particle Background */}
+      {/* Particle Background - only rendered when Hero is visible */}
       <div className="absolute inset-0 z-0 opacity-45 dark:opacity-65 pointer-events-none">
-        <Particles
-          particleColors={["#6366f1", "#4f46e5", "#3b82f6", "#a78bfa"]}
-          particleCount={150}
-          particleSpread={10}
-          speed={0.12}
-          particleBaseSize={100}
-          moveParticlesOnHover={true}
-          alphaParticles={true}
-          disableRotation={false}
-        />
+        {particlesVisible && (
+          <Particles
+            particleColors={["#6366f1", "#4f46e5", "#3b82f6", "#a78bfa"]}
+            particleCount={150}
+            particleSpread={10}
+            speed={0.12}
+            particleBaseSize={100}
+            moveParticlesOnHover={true}
+            alphaParticles={true}
+            disableRotation={false}
+          />
+        )}
       </div>
 
       {/* Bottom fade transition overlay */}
@@ -116,3 +138,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
