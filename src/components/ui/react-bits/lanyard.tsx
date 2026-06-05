@@ -116,7 +116,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardTextureSrc }:
 
   // Configure the custom texture for proper display on the card
   if (customCardTexture && cardTextureSrc) {
-    customCardTexture.flipY = false;
     customCardTexture.colorSpace = THREE.SRGBColorSpace;
     customCardTexture.needsUpdate = true;
   }

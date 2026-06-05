@@ -3,16 +3,14 @@ import React from "react";
 import dynamic from "next/dynamic";
 import {
   Code,
-  Briefcase,
-  GraduationCap,
-  MapPin,
-  Calendar,
   Layers,
   Server,
   Wrench,
+  ArrowRight,
 } from "lucide-react";
 import { CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/context/language-context";
 import BlurText from "@/components/ui/react-bits/blur-text";
 import CountUp from "@/components/ui/react-bits/count-up";
@@ -24,7 +22,7 @@ const LanyardComponent = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-full flex items-center justify-center bg-card/30 rounded-2xl border border-border/20 min-h-[400px]">
+      <div className="w-full h-full flex items-center justify-center min-h-[400px]">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
           <span className="text-xs text-muted-foreground">Loading 3D...</span>
@@ -34,36 +32,9 @@ const LanyardComponent = dynamic(
   }
 );
 
-const experiences = [
-  {
-    role: "Pranata Komputer",
-    company: "Bapeten",
-    period: "Nov 2025 – May 2026",
-    type: "Internship",
-  },
-  {
-    role: "Web Developer",
-    company: "JasProLand",
-    period: "Jun – Sep 2025",
-    type: "Freelance",
-  },
-  {
-    role: "Data Annotator",
-    company: "Infidea",
-    period: "May 2023 – Jan 2025",
-    type: "Contract",
-  },
-  {
-    role: "Backend Developer",
-    company: "Edukidos",
-    period: "Dec 2022 – Jan 2023",
-    type: "Freelance",
-  },
-];
-
 const techStack = {
-  languages: ["PHP", "JavaScript", "TypeScript", "Python", "HTML", "CSS", "SQL"],
-  frameworks: ["Laravel", "React", "Next.js", "Tailwind CSS", "Alpine.js", "Livewire", "Filament"],
+  languages: ["PHP", "JavaScript", "TypeScript", "Python", "SQL"],
+  frameworks: ["Laravel", "React", "Next.js", "Tailwind CSS", "Livewire", "Filament"],
   databases: ["MySQL", "MariaDB", "MongoDB"],
   tools: ["Git", "GitHub", "Postman", "REST API", "Figma", "Vercel"],
 };
@@ -89,7 +60,7 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="py-24 bg-muted relative overflow-hidden">
-      {/* Background blobs */}
+      {/* Background decoration */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/3 rounded-full blur-[100px] pointer-events-none" />
 
@@ -105,10 +76,10 @@ export default function AboutSection() {
           <div className="w-20 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 mx-auto rounded-full" />
         </div>
 
-        {/* ─── Lanyard + Profile Info ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20 items-start">
-          {/* Lanyard 3D Card */}
-          <div className="lg:col-span-5">
+        {/* ─── Lanyard + Intro ─── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-20 items-center">
+          {/* Lanyard 3D */}
+          <div>
             <div
               ref={containerRef}
               className="w-full h-[500px] sm:h-[560px] lg:h-[600px] relative rounded-2xl overflow-hidden"
@@ -122,84 +93,48 @@ export default function AboutSection() {
                 />
               )}
             </div>
-            <p className="text-center text-xs text-muted-foreground/50 mt-2">
+            <p className="text-center text-xs text-muted-foreground/50 mt-2 italic">
               {language === "EN" ? "✦ Drag the card to interact" : "✦ Tarik kartu untuk interaksi"}
             </p>
           </div>
 
-          {/* Profile Info */}
-          <div className="lg:col-span-7 space-y-8">
-            {/* Name + Title */}
+          {/* Personal Intro */}
+          <div className="flex flex-col justify-center space-y-6">
             <div>
-              <h3 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-2">
-                Sulthan Raghib Fillah
+              <p className="text-primary font-medium text-sm mb-2 tracking-wider uppercase">
+                {language === "EN" ? "Nice to meet you" : "Salam kenal"}
+              </p>
+              <h3 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+                {language === "EN" ? "I'm " : "Saya "}
+                <GradientText
+                  className="text-3xl md:text-4xl font-heading font-bold"
+                  colors={["#6366f1", "#3b82f6", "#a78bfa", "#6366f1"]}
+                  animationSpeed={6}
+                >
+                  Sulthan Raghib
+                </GradientText>
               </h3>
-              <GradientText
-                className="text-lg md:text-xl font-semibold"
-                colors={["#6366f1", "#3b82f6", "#a78bfa", "#6366f1"]}
-                animationSpeed={6}
-              >
-                Full Stack Web Developer
-              </GradientText>
-              <div className="flex flex-wrap gap-4 mt-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5">
-                  <GraduationCap className="h-4 w-4 text-primary/70" />
-                  S.Kom — STT Terpadu Nurul Fikri
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-primary/70" />
-                  Jakarta, Indonesia
-                </span>
-              </div>
             </div>
 
-            {/* Bio */}
-            <div className="space-y-3">
-              <p className="text-muted-foreground leading-relaxed text-[15px]">
-                {language === "EN"
-                  ? "Computer Science graduate (GPA 3.83/4.00) with a strong foundation in Full Stack Web Development. I specialize in building enterprise-scale web applications using PHP (Laravel), JavaScript, and relational database ecosystems (MySQL/MariaDB). Experienced in designing MVC architectures, REST API integrations, and secure backend systems."
-                  : "Lulusan Teknik Informatika (IPK 3,83/4,00) dengan fondasi kuat dalam Full Stack Web Development. Saya mengkhususkan diri dalam membangun aplikasi web skala enterprise menggunakan PHP (Laravel), JavaScript, dan ekosistem database relasional (MySQL/MariaDB). Berpengalaman merancang arsitektur MVC, integrasi REST API, dan sistem backend yang aman."}
-              </p>
-              <p className="text-muted-foreground leading-relaxed text-[15px]">
-                {language === "EN"
-                  ? "Passionate about continuous learning and cross-functional team collaboration. I've contributed to government digital systems, freelance web projects, and AI-related programs through MSIB (Kampus Merdeka)."
-                  : "Antusias dalam pembelajaran berkelanjutan dan kolaborasi tim lintas fungsi. Saya berkontribusi pada sistem digital pemerintah, proyek web freelance, dan program AI melalui MSIB (Kampus Merdeka)."}
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+              {language === "EN"
+                ? "A Full Stack Web Developer based in Jakarta, Indonesia. I build scalable web applications with clean code and modern design — from backend APIs to polished user interfaces."
+                : "Seorang Full Stack Web Developer berbasis di Jakarta, Indonesia. Saya membangun aplikasi web yang skalabel dengan kode bersih dan desain modern — dari backend API hingga antarmuka pengguna yang rapi."}
+            </p>
 
-            {/* Experience Timeline */}
-            <div>
-              <h4 className="font-heading font-bold text-xl text-foreground mb-4 flex items-center gap-2">
-                <span className="w-6 h-[2px] bg-primary rounded-full" />
-                {language === "EN" ? "Experience" : "Pengalaman"}
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {experiences.map((exp, idx) => (
-                  <div
-                    key={idx}
-                    className="group flex items-start gap-3 p-3 rounded-xl border border-border/30 bg-card/40 hover:bg-card/70 hover:border-primary/20 transition-all duration-300"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors mt-0.5">
-                      <Briefcase className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h5 className="font-semibold text-foreground text-sm leading-tight">
-                          {exp.role}
-                        </h5>
-                        <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                          {exp.type}
-                        </Badge>
-                      </div>
-                      <p className="text-primary/80 text-xs font-medium mt-0.5">{exp.company}</p>
-                      <div className="flex items-center gap-1 mt-1 text-[11px] text-muted-foreground/70">
-                        <Calendar className="h-3 w-3" />
-                        <span>{exp.period}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+              {language === "EN"
+                ? "I love turning complex problems into simple, elegant solutions. Whether it's crafting a Laravel backend, building a React frontend, or designing database architectures — I enjoy every part of the process."
+                : "Saya suka mengubah masalah kompleks menjadi solusi yang simpel dan elegan. Baik itu merancang backend Laravel, membangun frontend React, atau mendesain arsitektur database — saya menikmati setiap bagian dari prosesnya."}
+            </p>
+
+            <div className="pt-2">
+              <Button size="lg" className="group font-semibold" asChild>
+                <a href="#contact" className="inline-flex items-center">
+                  {language === "EN" ? "Let's Work Together" : "Mari Berkolaborasi"}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
             </div>
           </div>
         </div>
@@ -228,8 +163,8 @@ export default function AboutSection() {
           </h3>
           <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto text-sm">
             {language === "EN"
-              ? "Tools and technologies I use to bring ideas to life"
-              : "Alat dan teknologi yang saya gunakan untuk mewujudkan ide"}
+              ? "The tools I use daily to craft digital experiences"
+              : "Alat yang saya gunakan sehari-hari untuk membuat pengalaman digital"}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
