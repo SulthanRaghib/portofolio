@@ -111,13 +111,13 @@ export default function AboutSection() {
           <div className="lg:col-span-5">
             <div
               ref={containerRef}
-              className="w-full h-[480px] sm:h-[540px] lg:h-[580px] relative rounded-2xl overflow-hidden"
+              className="w-full h-[500px] sm:h-[560px] lg:h-[600px] relative rounded-2xl overflow-hidden"
             >
               {lanyardVisible && (
                 <LanyardComponent
-                  position={[0, 0, 14]}
+                  position={[0, 0, 20]}
                   gravity={[0, -40, 0]}
-                  fov={30}
+                  fov={26}
                   cardTextureSrc="/assets/my-self.jpg"
                 />
               )}

@@ -76,116 +76,6 @@ export default function Lanyard({
   );
 }
 
-/**
- * Creates a professional ID badge CanvasTexture with the given photo.
- */
-function useCardTexture(photoSrc?: string) {
-  const [canvasTexture, setCanvasTexture] = useState<THREE.CanvasTexture | null>(null);
-
-  useEffect(() => {
-    if (!photoSrc) return;
-
-    const canvas = document.createElement('canvas');
-    const W = 512;
-    const H = 720;
-    canvas.width = W;
-    canvas.height = H;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      // ── Background gradient ──
-      const bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, '#0c1929');
-      bg.addColorStop(1, '#162033');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, W, H);
-
-      // ── Subtle top accent line ──
-      const accent = ctx.createLinearGradient(0, 0, W, 0);
-      accent.addColorStop(0, 'transparent');
-      accent.addColorStop(0.3, '#6366f1');
-      accent.addColorStop(0.7, '#3b82f6');
-      accent.addColorStop(1, 'transparent');
-      ctx.fillStyle = accent;
-      ctx.fillRect(0, 0, W, 4);
-
-      // ── Photo (circular clipped) ──
-      const photoSize = 180;
-      const photoX = W / 2;
-      const photoY = 185;
-
-      // White ring
-      ctx.beginPath();
-      ctx.arc(photoX, photoY, photoSize / 2 + 5, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-
-      // Clip and draw photo
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(photoX, photoY, photoSize / 2, 0, Math.PI * 2);
-      ctx.clip();
-
-      // Draw photo centered and covering the circle
-      const srcSize = Math.min(img.width, img.height);
-      const sx = (img.width - srcSize) / 2;
-      const sy = (img.height - srcSize) / 2;
-      ctx.drawImage(img, sx, sy, srcSize, srcSize, photoX - photoSize / 2, photoY - photoSize / 2, photoSize, photoSize);
-      ctx.restore();
-
-      // ── Name ──
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 32px Inter, system-ui, sans-serif';
-      ctx.fillText('SULTHAN RAGHIB', W / 2, photoY + photoSize / 2 + 50);
-      ctx.fillText('FILLAH', W / 2, photoY + photoSize / 2 + 85);
-
-      // ── Title ──
-      ctx.fillStyle = '#818cf8';
-      ctx.font = '500 18px Inter, system-ui, sans-serif';
-      ctx.fillText('Full Stack Web Developer', W / 2, photoY + photoSize / 2 + 120);
-
-      // ── Separator ──
-      const sepY = photoY + photoSize / 2 + 145;
-      const sepGrad = ctx.createLinearGradient(W * 0.2, 0, W * 0.8, 0);
-      sepGrad.addColorStop(0, 'transparent');
-      sepGrad.addColorStop(0.5, 'rgba(99,102,241,0.5)');
-      sepGrad.addColorStop(1, 'transparent');
-      ctx.fillStyle = sepGrad;
-      ctx.fillRect(W * 0.15, sepY, W * 0.7, 1);
-
-      // ── Details ──
-      ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.font = '14px Inter, system-ui, sans-serif';
-      ctx.fillText('S.Kom • STT Terpadu Nurul Fikri', W / 2, sepY + 30);
-      ctx.fillText('Jakarta, Indonesia', W / 2, sepY + 55);
-
-      // ── Bottom accent ──
-      ctx.fillStyle = accent;
-      ctx.fillRect(0, H - 4, W, 4);
-
-      // Create Three.js texture
-      const tex = new THREE.CanvasTexture(canvas);
-      tex.flipY = false;
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.needsUpdate = true;
-      setCanvasTexture(tex);
-    };
-    img.src = photoSrc;
-
-    return () => {
-      if (canvasTexture) canvasTexture.dispose();
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [photoSrc]);
-
-  return canvasTexture;
-}
-
 interface BandProps {
   maxSpeed?: number;
   minSpeed?: number;
@@ -215,8 +105,21 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardTextureSrc }:
   };
 
   const { nodes, materials } = useGLTF('/assets/lanyard/card.glb') as any;
-  const texture = useTexture('/assets/lanyard/lanyard.png');
-  const customCardTexture = useCardTexture(cardTextureSrc);
+  const bandTexture = useTexture('/assets/lanyard/lanyard.png');
+
+  // Load custom photo texture for the card face (just the photo, full bleed)
+  const texturesToLoad = cardTextureSrc
+    ? [cardTextureSrc]
+    : [];
+  const loadedTextures = useTexture(texturesToLoad.length > 0 ? texturesToLoad : ['/assets/lanyard/lanyard.png']);
+  const customCardTexture = cardTextureSrc ? (Array.isArray(loadedTextures) ? loadedTextures[0] : loadedTextures) : null;
+
+  // Configure the custom texture for proper display on the card
+  if (customCardTexture && cardTextureSrc) {
+    customCardTexture.flipY = false;
+    customCardTexture.colorSpace = THREE.SRGBColorSpace;
+    customCardTexture.needsUpdate = true;
+  }
 
   const [curve] = useState(
     () => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -281,7 +184,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardTextureSrc }:
   });
 
   curve.curveType = 'chordal';
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  bandTexture.wrapS = bandTexture.wrapT = THREE.RepeatWrapping;
 
   const handlePointerDown = useCallback((e: any) => {
     e.target.setPointerCapture(e.pointerId);
@@ -291,8 +194,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardTextureSrc }:
     }
   }, []);
 
-  // Determine which texture to use for the card face
-  const cardMap = customCardTexture || materials.base.map;
+  // Use custom photo texture or fall back to GLB's built-in texture
+  const cardMap = (cardTextureSrc && customCardTexture) ? customCardTexture : materials.base.map;
 
   return (
     <>
@@ -339,7 +242,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardTextureSrc }:
       </group>
       <mesh ref={band}>
         <meshLineGeometry />
-        <meshLineMaterial color="white" depthTest={false} resolution={isMobile ? [1000, 2000] : [1000, 1000]} useMap map={texture} repeat={[-4, 1]} lineWidth={1} />
+        <meshLineMaterial color="white" depthTest={false} resolution={isMobile ? [1000, 2000] : [1000, 1000]} useMap map={bandTexture} repeat={[-4, 1]} lineWidth={1} />
       </mesh>
     </>
   );
