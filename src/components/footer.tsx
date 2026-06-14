@@ -15,9 +15,18 @@ export function Footer() {
         <svg
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          className="relative block w-full h-[40px] md:h-[60px] fill-muted"
+          className="relative block w-full h-[40px] md:h-[60px]"
         >
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13,86.19-14.39,170.28-68.67,258-74.85a387.09,387.09,0,0,1,149.6,18.84V0Z" />
+          <defs>
+            <linearGradient id="wave-contact-to-footer" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="var(--muted)" />
+              <stop offset="100%" stopColor="var(--background)" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13,86.19-14.39,170.28-68.67,258-74.85a387.09,387.09,0,0,1,149.6,18.84V0Z"
+            fill="url(#wave-contact-to-footer)"
+          />
         </svg>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
