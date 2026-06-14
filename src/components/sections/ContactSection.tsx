@@ -19,6 +19,7 @@ export default function ContactSection() {
             animateBy="words"
             direction="bottom"
           />
+          <div className="w-20 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 mx-auto rounded-full mt-2 mb-6" />
           <AnimatedContent direction="up" delay={200} distance={20}>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               {language === "EN"

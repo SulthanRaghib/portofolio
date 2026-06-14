@@ -37,10 +37,12 @@ export default function Magnet({
     setTransform("translate(0, 0)");
   }, []);
 
+  const displayClass = className.includes("block") ? "" : "inline-block";
+
   return (
     <div
       ref={ref}
-      className={`inline-block ${className}`}
+      className={`${displayClass} ${className}`}
       style={{
         padding: `${padding}px`,
         margin: `-${padding}px`,

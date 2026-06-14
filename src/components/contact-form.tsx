@@ -187,7 +187,7 @@ export function ContactForm() {
 
       {/* Contact Form */}
       <AnimatedContent direction="right" delay={400}>
-        <SpotlightCard className="h-full">
+        <SpotlightCard className="h-full py-6 flex flex-col gap-6">
           <CardHeader>
             <CardTitle className="font-heading font-bold text-xl">
               {language === "EN" ? "Send a Message" : "Kirim Pesan"}
@@ -296,19 +296,19 @@ export function ContactForm() {
                   value={values.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`min-h-[120px] resize-none ${errors.message ? "border-destructive" : ""}`}
+                  className={`min-h-[150px] p-4 resize-none ${errors.message ? "border-destructive" : ""}`}
                 />
                 {errors.message && (
                   <p className="text-sm text-destructive mt-1">{errors.message}</p>
                 )}
               </div>
 
-              <ClickSpark sparkColor="#6366f1" sparkCount={10}>
-                <Magnet padding={20} magnetStrength={0.2}>
+              <ClickSpark sparkColor="#6366f1" sparkCount={10} className="w-full block">
+                <Magnet padding={12} magnetStrength={0.2} className="w-full block">
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full font-semibold"
+                    className="w-full font-semibold py-6 cursor-pointer"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

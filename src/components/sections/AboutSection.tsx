@@ -44,65 +44,69 @@ export default function AboutSection() {
             animateBy="words"
             delay={80}
           />
-          <div className="w-20 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 mx-auto rounded-full mt-2" />
         </div>
 
         {/* ─── Profile + Bio ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 items-center">
           {/* LEFT: Profile Photo */}
-          <AnimatedContent direction="left" delay={100}>
-            <TiltedCard className="relative overflow-hidden rounded-2xl" rotateAmplitude={10}>
-              <Image
-                src="/assets/my-self.jpg"
-                alt="Sulthan Raghib Fillah"
-                width={500}
-                height={600}
-                className="w-full h-auto object-cover rounded-2xl"
-              />
-            </TiltedCard>
-          </AnimatedContent>
+          <div className="lg:col-span-5 flex justify-center">
+            <AnimatedContent direction="left" delay={100} className="w-full max-w-[320px] md:max-w-[350px]">
+              <TiltedCard className="relative overflow-hidden rounded-2xl shadow-lg border border-border" rotateAmplitude={10}>
+                <Image
+                  src="/assets/my-self.jpg"
+                  alt="Sulthan Raghib Fillah"
+                  width={350}
+                  height={420}
+                  className="w-full h-auto object-cover rounded-2xl aspect-[5/6]"
+                />
+              </TiltedCard>
+            </AnimatedContent>
+          </div>
 
           {/* RIGHT: Bio */}
-          <AnimatedContent direction="right" delay={200}>
-            <div className="flex flex-col justify-center space-y-6">
-              <div>
-                <p className="text-primary font-medium text-sm mb-2 tracking-wider uppercase">
-                  {language === "EN" ? "Nice to meet you" : "Salam kenal"}
-                </p>
-                <h3 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+          <div className="lg:col-span-7">
+            <AnimatedContent direction="right" delay={200}>
+              <div className="flex flex-col justify-center space-y-6">
+                <div>
+                  <p className="text-primary font-medium text-sm mb-2 tracking-wider uppercase">
+                    {language === "EN" ? "Nice to meet you" : "Salam kenal"}
+                  </p>
+                  <h3 className="font-heading font-bold text-3xl md:text-4xl text-foreground mb-3">
+                    {language === "EN"
+                      ? "I'm Sulthan Raghib Fillah"
+                      : "Saya Sulthan Raghib Fillah"}
+                  </h3>
+                  <p className="text-primary font-semibold text-lg">
+                    Full Stack Web Developer
+                  </p>
+                </div>
+
+                <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
                   {language === "EN"
-                    ? "I'm Sulthan Raghib Fillah"
-                    : "Saya Sulthan Raghib Fillah"}
-                </h3>
-                <p className="text-primary font-semibold text-lg">
-                  Full Stack Web Developer
+                    ? "A passionate developer based in Jakarta, Indonesia. I build scalable web applications with clean code and modern design — from backend APIs to polished user interfaces."
+                    : "Pengembang antusias yang berbasis di Jakarta, Indonesia. Saya membangun aplikasi web yang skalabel dengan kode bersih dan desain modern — dari backend API hingga antarmuka pengguna yang rapi."}
                 </p>
+
+                <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+                  {language === "EN"
+                    ? "I love turning complex problems into simple, elegant solutions. Whether it's crafting a Laravel backend, building a React frontend, or designing database architectures — I enjoy every part of the process."
+                    : "Saya gemar mengubah masalah kompleks menjadi solusi yang simpel dan elegan. Baik itu merancang backend Laravel, membangun frontend React, atau mendesain arsitektur database — saya menikmati setiap bagian dari prosesnya."}
+                </p>
+
+                <div className="pt-2">
+                  <Magnet>
+                    <Button size="lg" className="group font-semibold cursor-pointer" asChild>
+                      <a href="#contact" className="inline-flex items-center">
+                        {language === "EN" ? "Let's Work Together" : "Mari Berkolaborasi"}
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </Button>
+                  </Magnet>
+                </div>
               </div>
-
-              <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-                {language === "EN"
-                  ? "A passionate developer based in Jakarta, Indonesia. I build scalable web applications with clean code and modern design — from backend APIs to polished user interfaces."
-                  : "Pengembang antusias yang berbasis di Jakarta, Indonesia. Saya membangun aplikasi web yang skalabel dengan kode bersih dan desain modern — dari backend API hingga antarmuka pengguna yang rapi."}
-              </p>
-
-              <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-                {language === "EN"
-                  ? "I love turning complex problems into simple, elegant solutions. Whether it's crafting a Laravel backend, building a React frontend, or designing database architectures — I enjoy every part of the process."
-                  : "Saya gemar mengubah masalah kompleks menjadi solusi yang simpel dan elegan. Baik itu merancang backend Laravel, membangun frontend React, atau mendesain arsitektur database — saya menikmati setiap bagian dari prosesnya."}
-              </p>
-
-              <div className="pt-2">
-                <Magnet>
-                  <Button size="lg" className="group font-semibold" asChild>
-                    <a href="#contact" className="inline-flex items-center">
-                      {language === "EN" ? "Let's Work Together" : "Mari Berkolaborasi"}
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  </Button>
-                </Magnet>
-              </div>
-            </div>
-          </AnimatedContent>
+            </AnimatedContent>
+          </div>
         </div>
 
         {/* ─── Stats ─── */}

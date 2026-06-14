@@ -31,6 +31,7 @@ export default function ProjectsSection() {
               animateBy="words"
               delay={80}
             />
+            <div className="w-20 h-1 bg-gradient-to-r from-primary/0 via-primary to-primary/0 mx-auto rounded-full mt-2 mb-6" />
             <BlurText
               text={
                 language === "EN"

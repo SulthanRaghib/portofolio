@@ -8,6 +8,7 @@ interface ClickSparkProps {
   sparkCount?: number;
   sparkSize?: number;
   duration?: number;
+  className?: string;
 }
 
 export default function ClickSpark({
@@ -16,6 +17,7 @@ export default function ClickSpark({
   sparkCount = 8,
   sparkSize = 10,
   duration = 400,
+  className = "inline-block",
 }: ClickSparkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -94,7 +96,7 @@ export default function ClickSpark({
   return (
     <div
       ref={containerRef}
-      className="relative inline-block"
+      className={`relative ${className}`}
       onClick={handleClick}
     >
       {children}
