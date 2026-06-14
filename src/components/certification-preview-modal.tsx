@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { X, Download, ExternalLink, Copy, Check, Award, Calendar, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/context/language-context";
@@ -21,6 +22,11 @@ export function CertificationPreviewModal({
   const { language } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [pdfError, setPdfError] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -44,6 +50,7 @@ export function CertificationPreviewModal({
   }, [isOpen, handleKeyDown]);
 
   if (!isOpen) return null;
+  if (!mounted) return null;
 
   const handleCopyCredential = async () => {
     if (!certification.credentialId) return;
@@ -67,7 +74,7 @@ export function CertificationPreviewModal({
 
   const pdfUrl = certification.image;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md transition-opacity duration-300 animate-in fade-in">
       {/* Backdrop */}
       <div className="absolute inset-0 cursor-default" onClick={onClose} />
@@ -269,6 +276,7 @@ export function CertificationPreviewModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
