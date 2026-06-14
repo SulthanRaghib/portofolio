@@ -9,7 +9,7 @@ export const fallbackProjects: Project[] = [
     descriptionId:
       "Sistem Computer Assisted Test (CAT) komprehensif yang dikembangkan untuk Badan Pengawas Tenaga Nuklir (BAPETEN). Dibangun menggunakan TALL stack (Tailwind CSS, Alpine.js, Laravel, Livewire) dan Filament PHP untuk merampingkan proses evaluasi. Fitur utama mencakup manajemen bank soal dinamis, pemantauan sesi ujian, perhitungan waktu mundur real-time, akses peserta yang aman, serta konfigurasi penilaian otomatis dengan laporan komprehensif yang dapat diekspor.",
     image:
-      "https://res.cloudinary.com/dgazwu3i3/image/upload/v1778473171/Screenshot_2026-05-11_111856_r3zcbo.png",
+      "https://res.cloudinary.com/dgazwu3i3/image/upload/v1781410631/Screenshot_2026-06-14_111526_czn6wb.png",
     technologies: [
       "Laravel",
       "Livewire",
