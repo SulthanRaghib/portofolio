@@ -86,6 +86,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/#certifications"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200"
+                >
+                  {language === "EN" ? "Certifications" : "Sertifikasi"}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/#contact"
                   className="text-muted-foreground hover:text-primary transition-colors duration-200"
                 >
@@ -98,13 +106,13 @@ export function Footer() {
           {/* Services */}
           <div>
             <h3 className="font-heading font-bold text-foreground mb-4">
-              Services
+              {language === "EN" ? "Services" : "Layanan"}
             </h3>
             <ul className="space-y-2">
-              <li className="text-muted-foreground">Web Development</li>
-              <li className="text-muted-foreground">Backend Engineering</li>
-              <li className="text-muted-foreground">API Integration</li>
-              <li className="text-muted-foreground">Database Design</li>
+              <li className="text-muted-foreground">{language === "EN" ? "Web Development" : "Pengembangan Web"}</li>
+              <li className="text-muted-foreground">{language === "EN" ? "Backend Engineering" : "Rekayasa Backend"}</li>
+              <li className="text-muted-foreground">{language === "EN" ? "API Integration" : "Integrasi API"}</li>
+              <li className="text-muted-foreground">{language === "EN" ? "Database Design" : "Desain Database"}</li>
             </ul>
           </div>
         </div>
@@ -114,9 +122,9 @@ export function Footer() {
             © {currentYear} Sulthan Raghib Fillah. All rights reserved.
           </div>
           <div className="flex items-center text-muted-foreground text-sm">
-            <span>Made with</span>
+            <span>{language === "EN" ? "Made with" : "Dibuat dengan"}</span>
             <Heart className="h-4 w-4 mx-1 text-red-500 fill-current" />
-            <span>using Next.js & Tailwind CSS</span>
+            <span>{language === "EN" ? "using Next.js & Tailwind CSS" : "menggunakan Next.js & Tailwind CSS"}</span>
           </div>
         </div>
       </div>

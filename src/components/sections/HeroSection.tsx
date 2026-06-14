@@ -5,8 +5,10 @@ import { ExternalLink, Download, ArrowDown } from "lucide-react";
 import { useLanguage } from "@/components/context/language-context";
 import Particles from "@/components/ui/react-bits/particles";
 import SplitText from "@/components/ui/react-bits/split-text";
-import GradientText from "@/components/ui/react-bits/gradient-text";
 import BlurText from "@/components/ui/react-bits/blur-text";
+import RotatingText from "@/components/ui/react-bits/rotating-text";
+import Magnet from "@/components/ui/react-bits/magnet";
+import ClickSpark from "@/components/ui/react-bits/click-spark";
 
 export default function HeroSection() {
   const { language } = useLanguage();
@@ -29,6 +31,11 @@ export default function HeroSection() {
 
     return () => observer.disconnect();
   }, []);
+
+  const roles =
+    language === "EN"
+      ? ["Web Developer", "Backend Engineer", "Full Stack Developer"]
+      : ["Pengembang Web", "Rekayasa Backend", "Pengembang Full Stack"];
 
   return (
     <section
@@ -68,20 +75,15 @@ export default function HeroSection() {
           delay={30}
         />
 
-        <div className="mb-4 text-center">
-          <GradientText
-            className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold"
-            colors={[
-              "#6366f1",
-              "#4f46e5",
-              "#3b82f6",
-              "#a78bfa",
-              "#6366f1",
-            ]}
-            animationSpeed={6}
-          >
-            Web Developer | Backend Engineer
-          </GradientText>
+        <div className="mb-4 text-center text-2xl md:text-3xl lg:text-4xl font-heading">
+          <span className="text-primary">
+            {language === "EN" ? "I'm a " : "Saya seorang "}
+            <RotatingText
+              texts={roles}
+              interval={3000}
+              className="font-bold"
+            />
+          </span>
         </div>
 
         <div className="max-w-2xl mx-auto mb-8 text-center">
@@ -98,32 +100,38 @@ export default function HeroSection() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <Button
-            size="lg"
-            className="text-lg px-8 py-6 font-semibold group"
-            asChild
-          >
-            <a href="#projects" className="inline-flex items-center">
-              {language === "EN" ? "View My Work" : "Lihat Karyaku"}
-              <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
+          <Magnet>
+            <ClickSpark sparkColor="#6366f1">
+              <Button
+                size="lg"
+                className="text-lg px-8 py-6 font-semibold group"
+                asChild
+              >
+                <a href="#projects" className="inline-flex items-center">
+                  {language === "EN" ? "View My Work" : "Lihat Karyaku"}
+                  <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+            </ClickSpark>
+          </Magnet>
 
-          <Button
-            variant="outline"
-            size="lg"
-            className="text-lg px-8 py-6 font-semibold group"
-            asChild
-          >
-            <a
-              href="/assets/Resume_Sulthan-Raghib-Fillah.pdf"
-              download
-              className="inline-flex items-center bg-transparent"
+          <Magnet>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-lg px-8 py-6 font-semibold group"
+              asChild
             >
-              {language === "EN" ? "Download Resume" : "Unduh Resume"}
-              <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
-            </a>
-          </Button>
+              <a
+                href="/assets/Resume_Sulthan-Raghib-Fillah.pdf"
+                download
+                className="inline-flex items-center bg-transparent"
+              >
+                {language === "EN" ? "Download Resume" : "Unduh Resume"}
+                <Download className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+              </a>
+            </Button>
+          </Magnet>
         </div>
 
         <div className="flex flex-col items-center">
@@ -138,4 +146,3 @@ export default function HeroSection() {
     </section>
   );
 }
-
